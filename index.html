@@ -27,6 +27,132 @@
     <link rel="stylesheet" href="./modern-style.css">
     <link rel="stylesheet" href="./shared-style.css">
 
+    <style>
+        /* Horizontal Scrolling Heroes */
+        .heroes-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.03) 100%);
+            padding: 6rem 2rem;
+        }
+
+        .heroes-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 2rem 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .heroes-scroll-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .heroes-scroll-container::-webkit-scrollbar-track {
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
+        }
+
+        .heroes-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--accent-gradient);
+            border-radius: 10px;
+        }
+
+        .hero-card {
+            flex: 0 0 calc(33.333% - 1.34rem);
+            min-width: 300px;
+            background: rgba(15, 20, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-card:hover::before {
+            left: 100%;
+        }
+
+        .hero-card:hover {
+            border-color: var(--accent-indigo);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-card:hover .hero-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .hero-description {
+            color: var(--text-platinum);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .hero-cta-link {
+            color: var(--accent-indigo);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: auto;
+        }
+
+        .hero-cta-link:hover {
+            color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 1024px) {
+            .hero-card {
+                flex: 0 0 calc(50% - 1rem);
+                min-width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-card {
+                flex: 0 0 calc(80% - 1rem);
+                min-width: 250px;
+            }
+        }
+    </style>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -155,6 +281,76 @@
                 <div class="metric-card">
                     <div class="metric-number">15+</div>
                     <div class="metric-label">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Scrolling Heroes Section -->
+    <section class="heroes-section">
+        <div class="container">
+            <h2 class="section-title">Why Partner With IK Strategic</h2>
+            <p class="section-subtitle">Discover what makes us the preferred partner for enterprise transformation</p>
+
+            <div class="heroes-scroll-container">
+                <!-- Hero 1: Proven Expertise -->
+                <div class="hero-card">
+                    <div>
+                        <div class="hero-icon">🏆</div>
+                        <div class="hero-tagline">15+ Years of Excellence</div>
+                        <div class="hero-description">Trusted by 50+ enterprises across diverse industries. Our track record speaks: 10X average growth impact and 99% client retention.</div>
+                    </div>
+                    <a href="./about.premium.html" class="hero-cta-link">Learn our story →</a>
+                </div>
+
+                <!-- Hero 2: Strategic Excellence -->
+                <div class="hero-card">
+                    <div>
+                        <div class="hero-icon">🎯</div>
+                        <div class="hero-tagline">Strategic Excellence</div>
+                        <div class="hero-description">Data-driven insights combined with deep industry expertise. We don't just advise—we partner in your success and share the impact.</div>
+                    </div>
+                    <a href="./services.premium.html" class="hero-cta-link">Explore services →</a>
+                </div>
+
+                <!-- Hero 3: Innovation Leaders -->
+                <div class="hero-card">
+                    <div>
+                        <div class="hero-icon">⚡</div>
+                        <div class="hero-tagline">Innovation Leaders</div>
+                        <div class="hero-description">Leveraging AI, emerging tech, and breakthrough thinking. We help you lead, not just keep pace with market disruption.</div>
+                    </div>
+                    <a href="./case-studies.premium.html" class="hero-cta-link">See results →</a>
+                </div>
+
+                <!-- Hero 4: Global Reach -->
+                <div class="hero-card">
+                    <div>
+                        <div class="hero-icon">🌍</div>
+                        <div class="hero-tagline">Global Reach, Local Expertise</div>
+                        <div class="hero-description">Present in APAC, EMEA, and Americas. Global networks meet local market knowledge for truly transformative solutions.</div>
+                    </div>
+                    <a href="./about.premium.html" class="hero-cta-link">Discover reach →</a>
+                </div>
+
+                <!-- Hero 5: Client-Centric -->
+                <div class="hero-card">
+                    <div>
+                        <div class="hero-icon">💎</div>
+                        <div class="hero-tagline">Premium Partnership</div>
+                        <div class="hero-description">Your success is our success. We invest deeply, execute rigorously, and remain committed long after launch.</div>
+                    </div>
+                    <a href="./contact.premium.html" class="hero-cta-link">Start partnership →</a>
+                </div>
+
+                <!-- Hero 6: Measurable Results -->
+                <div class="hero-card">
+                    <div>
+                        <div class="hero-icon">📈</div>
+                        <div class="hero-tagline">Measurable Results</div>
+                        <div class="hero-description">$2B+ in value created. Real transformations. Real growth. Real impact you can quantify and celebrate.</div>
+                    </div>
+                    <a href="./case-studies.premium.html" class="hero-cta-link">View impact →</a>
                 </div>
             </div>
         </div>
