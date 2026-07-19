@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet the IK Strategic Services leadership team - Experienced strategists and industry experts transforming enterprises globally.">
+    <meta name="keywords" content="consulting team, leadership, strategy experts, consultants, business leaders">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Our Team - IK Strategic Services LLP">
+    <meta property="og:description" content="Meet our elite team of strategic advisors and industry experts.">
+    <meta property="og:type" content="website">
+    <meta name="author" content="IK Strategic Services LLP">
+    <title>Our Team - IK Strategic Services LLP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.css">
+
+    <link rel="stylesheet" href="./shared-style.css">
+
+    <style>
+        .team-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.05));
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: rgba(15, 20, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            border-color: var(--accent-indigo);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .team-member:hover .member-image::after {
+            opacity: 0.1;
+        }
+
+        .member-info {
+            padding: 2rem;
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.3rem;
+        }
+
+        .member-title {
+            color: var(--accent-indigo);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .member-bio {
+            color: var(--text-platinum);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .member-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--accent-indigo);
+            color: var(--accent-indigo);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .team-member:hover .skill-tag {
+            background: var(--accent-indigo);
+            color: var(--text-white);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "IK Strategic Services LLP",
+      "url": "https://ikstrategic.com/team",
+      "description": "Elite team of strategic advisors and industry experts"
+    }
+    </script>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="./index.html" class="navbar-logo">IK STRATEGIC</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="./index.html">Home</a></li>
+                <li class="nav-item nav-dropdown">
+                    <a href="./services.premium.html">Services</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./services.premium.html#transformation">Business Transformation</a></li>
+                        <li><a href="./services.premium.html#growth">Growth Scaling</a></li>
+                        <li><a href="./services.premium.html#risk">Risk Mitigation</a></li>
+                        <li><a href="./services.premium.html#operations">Operations Excellence</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="./about.premium.html">About</a></li>
+                <li class="nav-item"><a href="./team.premium.html" class="active">Team</a></li>
+                <li class="nav-item"><a href="./case-studies.premium.html">Case Studies</a></li>
+                <li class="nav-item"><a href="./contact.premium.html" class="cta-pill">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="team-hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Meet Our Elite Advisory Team</h1>
+            <p class="hero-subtitle">Seasoned strategists and industry leaders with 200+ years of collective experience transforming enterprises globally.</p>
+        </div>
+    </section>
+
+    <!-- Team Showcase -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Leadership</h2>
+            <p class="section-subtitle">Visionary leaders driving strategic excellence and transformative impact</p>
+
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <div class="member-image">👔</div>
+                    <div class="member-info">
+                        <div class="member-name">David Chen</div>
+                        <div class="member-title">Founder & CEO</div>
+                        <p class="member-bio">20+ years leading strategic transformations for Fortune 500 companies. Harvard MBA with deep expertise in enterprise strategy and digital innovation.</p>
+                        <div class="member-skills">
+                            <span class="skill-tag">Strategy</span>
+                            <span class="skill-tag">Leadership</span>
+                            <span class="skill-tag">Digital</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <div class="member-image">💼</div>
+                    <div class="member-info">
+                        <div class="member-name">Sarah Williams</div>
+                        <div class="member-title">Chief Strategy Officer</div>
+                        <p class="member-bio">Expert in market expansion and growth scaling. Led 15+ successful market entries across APAC, EMEA, and Americas regions with 300%+ revenue growth.</p>
+                        <div class="member-skills">
+                            <span class="skill-tag">Growth</span>
+                            <span class="skill-tag">Market Entry</span>
+                            <span class="skill-tag">Operations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-member">
+                    <div class="member-image">🎯</div>
+                    <div class="member-info">
+                        <div class="member-name">Michael Rodriguez</div>
+                        <div class="member-title">Head of Digital Innovation</div>
+                        <p class="member-bio">Pioneering digital transformation strategies. Specializes in AI adoption, cloud migration, and emerging technology integration for enterprise clients.</p>
+                        <div class="member-skills">
+                            <span class="skill-tag">Digital</span>
+                            <span class="skill-tag">AI/ML</span>
+                            <span class="skill-tag">Cloud</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-member">
+                    <div class="member-image">🚀</div>
+                    <div class="member-info">
+                        <div class="member-name">Emily Martinez</div>
+                        <div class="member-title">Senior Partner, Operations</div>
+                        <p class="member-bio">Operational excellence expert with 18+ years optimizing supply chains and processes. Delivered $2B+ in cost savings and efficiency improvements.</p>
+                        <div class="member-skills">
+                            <span class="skill-tag">Operations</span>
+                            <span class="skill-tag">Supply Chain</span>
+                            <span class="skill-tag">Analytics</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="team-member">
+                    <div class="member-image">💡</div>
+                    <div class="member-info">
+                        <div class="member-name">James Thompson</div>
+                        <div class="member-title">Senior Partner, Risk & Compliance</div>
+                        <p class="member-bio">Risk management and governance specialist. Helped 30+ enterprises navigate regulatory complexity and build resilient operating models.</p>
+                        <div class="member-skills">
+                            <span class="skill-tag">Risk</span>
+                            <span class="skill-tag">Compliance</span>
+                            <span class="skill-tag">Governance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 6 -->
+                <div class="team-member">
+                    <div class="member-image">🌟</div>
+                    <div class="member-info">
+                        <div class="member-name">Lisa Park</div>
+                        <div class="member-title">Senior Partner, Technology</div>
+                        <p class="member-bio">Technology strategy innovator. 15+ years driving digital ecosystem transformation and enterprise architecture modernization initiatives.</p>
+                        <div class="member-skills">
+                            <span class="skill-tag">Technology</span>
+                            <span class="skill-tag">Architecture</span>
+                            <span class="skill-tag">Innovation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Our Team?</h2>
+            <p class="section-subtitle">What sets our advisory team apart</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo);">Deep Industry Expertise</h3>
+                    <p>Combined experience across 20+ industries with proven track records of delivering transformational results in complex environments.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo);">Academic Excellence</h3>
+                    <p>Team members hold advanced degrees from top-tier institutions including Harvard, Stanford, MIT, and Oxford.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo);">Board & C-Suite Access</h3>
+                    <p>Extensive networks with corporate boards, C-suite executives, and institutional investors across global markets.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo);">Hands-On Execution</h3>
+                    <p>Partners remain actively engaged through implementation, ensuring strategic vision translates into measurable results.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo);">Thought Leadership</h3>
+                    <p>Regular contributors to leading publications and speakers at premier industry conferences on strategy and innovation.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo);">Collaborative Mindset</h3>
+                    <p>Committed to building long-term partnerships where client success becomes our success, with aligned incentives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-light">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <h2 class="section-title">Ready to Work With Our Team?</h2>
+                <p class="section-subtitle">Connect with our advisors to explore how we can transform your enterprise.</p>
+                <button class="hero-cta" data-anchor="contact">Schedule a Consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IK STRATEGIC SERVICES</h4>
+                    <p>Premium corporate strategy and advisory for forward-thinking enterprises.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="./services.premium.html">Services</a></li>
+                        <li><a href="./about.premium.html">About</a></li>
+                        <li><a href="./team.premium.html">Team</a></li>
+                        <li><a href="./case-studies.premium.html">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                        <li><a href="mailto:info@ikstrategic.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IK Strategic Services LLP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script src="./modern-app.js"></script>
+    <script src="./shared-app.js"></script>
+</body>
+</html>

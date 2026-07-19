@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact IK Strategic Services LLP - Get in touch with our advisory team to discuss your strategic transformation needs.">
+    <meta name="keywords" content="contact us, get in touch, strategic advisory, consultation, inquiry">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Contact - IK Strategic Services LLP">
+    <meta property="og:description" content="Reach out to discuss your strategic transformation and business objectives.">
+    <meta property="og:type" content="website">
+    <meta name="author" content="IK Strategic Services LLP">
+    <title>Contact Us - IK Strategic Services LLP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.css">
+
+    <link rel="stylesheet" href="./shared-style.css">
+
+    <style>
+        .contact-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.05));
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 2rem;
+        }
+
+        .contact-method {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .contact-method:last-child {
+            border-bottom: none;
+        }
+
+        .contact-label {
+            color: var(--accent-indigo);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            color: var(--text-platinum);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-value a {
+            color: var(--accent-indigo);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-value a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .contact-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-wrapper {
+            background: rgba(15, 20, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .form-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .form-feedback.active {
+            display: block;
+        }
+
+        .form-feedback.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .form-feedback.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        @media (max-width: 1024px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPoint",
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "IK Strategic Services LLP",
+      "url": "https://ikstrategic.com/contact",
+      "contactPoint": {
+        "contactType": "Business Inquiries",
+        "email": "info@ikstrategic.com"
+      }
+    }
+    </script>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="./index.html" class="navbar-logo">IK STRATEGIC</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="./index.html">Home</a></li>
+                <li class="nav-item nav-dropdown">
+                    <a href="./services.premium.html">Services</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./services.premium.html#transformation">Business Transformation</a></li>
+                        <li><a href="./services.premium.html#growth">Growth Scaling</a></li>
+                        <li><a href="./services.premium.html#risk">Risk Mitigation</a></li>
+                        <li><a href="./services.premium.html#operations">Operations Excellence</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="./about.premium.html">About</a></li>
+                <li class="nav-item"><a href="./team.premium.html">Team</a></li>
+                <li class="nav-item"><a href="./case-studies.premium.html">Case Studies</a></li>
+                <li class="nav-item"><a href="./contact.premium.html" class="active cta-pill">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero" id="contact">
+        <div class="hero-container">
+            <h1 class="hero-title">Let's Transform Your Enterprise Together</h1>
+            <p class="hero-subtitle">Connect with our strategic advisors to explore how IK Strategic can help you achieve your most ambitious business objectives.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">We're ready to discuss your strategic priorities and transformation needs</p>
+
+            <div class="contact-wrapper">
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+
+                    <div class="contact-method">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">
+                            <a href="mailto:info@ikstrategic.com">info@ikstrategic.com</a>
+                        </div>
+                        <div class="contact-desc">We typically respond within 24 hours</div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-label">Office Hours</div>
+                        <div class="contact-value">Monday - Friday: 9:00 AM - 6:00 PM EST</div>
+                        <div class="contact-desc">Available for urgent inquiries outside these hours</div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-label">Response Timeline</div>
+                        <div class="contact-value">
+                            Initial Response: 24 hours<br>
+                            Consultation Setup: 3-5 business days
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-label">Service Areas</div>
+                        <div class="contact-value">North America, EMEA, APAC</div>
+                        <div class="contact-desc">Global reach with local expertise</div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="form-wrapper">
+                    <h3>Send an Inquiry</h3>
+                    <form id="contactForm">
+                        <div class="form-feedback" id="formFeedback"></div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Your Name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="your@company.com" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="company" placeholder="Company Name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" placeholder="Phone Number" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="role" placeholder="Your Title" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <select id="service" class="form-input" required>
+                                    <option value="">Select Service Interest</option>
+                                    <option value="transformation">Business Transformation</option>
+                                    <option value="growth">Growth Scaling</option>
+                                    <option value="risk">Risk Mitigation</option>
+                                    <option value="operations">Operations Excellence</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row full">
+                            <div class="form-group">
+                                <textarea id="message" placeholder="Tell us about your strategic priorities and how we can help..." class="form-input form-textarea" required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="form-submit">Send Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Common questions about working with IK Strategic</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">What's your typical engagement model?</h3>
+                    <p>We work on project-based, retainer, and time-and-materials models. Initial consultation is always complimentary to discuss your specific needs and develop a tailored approach.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">How long does a typical engagement last?</h3>
+                    <p>Strategic engagements typically range from 3-24 months depending on scope and complexity. We work collaboratively to establish clear timelines and milestones upfront.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Do you work with companies of all sizes?</h3>
+                    <p>Yes. We work with startups, mid-market companies, and Fortune 500 enterprises. Our solutions scale to match your organizational size and complexity.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Can you work within our budget constraints?</h3>
+                    <p>We believe in flexible engagement structures. Let's discuss your budget and priorities—we'll develop a scoped approach that delivers maximum value.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">What industries do you specialize in?</h3>
+                    <p>We have deep expertise across 20+ industries including financial services, technology, healthcare, manufacturing, retail, energy, and government sectors.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">How do you measure success?</h3>
+                    <p>We establish KPIs and success metrics at engagement start. Regular reporting, progress reviews, and outcome measurement ensure alignment and accountability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section section-light">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <h2 class="section-title">Ready to Begin?</h2>
+                <p class="section-subtitle">Submit your inquiry above or reach out directly to info@ikstrategic.com. We look forward to exploring how we can drive strategic transformation for your enterprise.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IK STRATEGIC SERVICES</h4>
+                    <p>Premium corporate strategy and advisory for forward-thinking enterprises.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="./services.premium.html">Services</a></li>
+                        <li><a href="./about.premium.html">About</a></li>
+                        <li><a href="./team.premium.html">Team</a></li>
+                        <li><a href="./case-studies.premium.html">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                        <li><a href="mailto:info@ikstrategic.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IK Strategic Services LLP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script src="./modern-app.js"></script>
+    <script src="./shared-app.js"></script>
+</body>
+</html>

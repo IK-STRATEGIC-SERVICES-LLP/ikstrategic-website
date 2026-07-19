@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IK Strategic Services Pricing - Flexible engagement models for enterprise consulting and strategic advisory services.">
+    <meta name="keywords" content="consulting pricing, service packages, engagement models, strategy consulting rates">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Pricing - IK Strategic Services LLP">
+    <meta property="og:description" content="Transparent, flexible pricing for strategic consulting and advisory services.">
+    <meta property="og:type" content="website">
+    <meta name="author" content="IK Strategic Services LLP">
+    <title>Pricing - IK Strategic Services LLP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.css">
+
+    <link rel="stylesheet" href="./shared-style.css">
+
+    <style>
+        .pricing-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.05));
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(15, 20, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-indigo);
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gradient);
+            color: var(--text-white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--accent-indigo);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-description {
+            color: var(--text-platinum);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+        }
+
+        .pricing-period {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            color: var(--text-platinum);
+            padding-left: 1.8rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-indigo);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .pricing-card:hover .pricing-features li::before {
+            color: var(--accent-cyan);
+        }
+
+        .pricing-cta {
+            padding: 1rem 2rem;
+            background: var(--accent-gradient);
+            color: var(--text-white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            width: 100%;
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: var(--accent-gradient);
+        }
+
+        .engagement-models {
+            background: rgba(15, 20, 32, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 4rem 0;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .model-card h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .model-card p {
+            color: var(--text-platinum);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-8px);
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "IK Strategic Services LLP",
+      "url": "https://ikstrategic.com/pricing",
+      "description": "Strategic consulting pricing and engagement models"
+    }
+    </script>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="./index.html" class="navbar-logo">IK STRATEGIC</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="./index.html">Home</a></li>
+                <li class="nav-item nav-dropdown">
+                    <a href="./services.premium.html">Services</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./services.premium.html#transformation">Business Transformation</a></li>
+                        <li><a href="./services.premium.html#growth">Growth Scaling</a></li>
+                        <li><a href="./services.premium.html#risk">Risk Mitigation</a></li>
+                        <li><a href="./services.premium.html#operations">Operations Excellence</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="./about.premium.html">About</a></li>
+                <li class="nav-item"><a href="./team.premium.html">Team</a></li>
+                <li class="nav-item"><a href="./case-studies.premium.html">Case Studies</a></li>
+                <li class="nav-item"><a href="./contact.premium.html" class="cta-pill">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Flexible, Transparent Pricing</h1>
+            <p class="hero-subtitle">Customized engagement models designed to align with your budget, timeline, and strategic objectives.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Packages -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Engagement Packages</h2>
+            <p class="section-subtitle">Choose the package that best fits your needs, or let's customize a solution</p>
+
+            <div class="pricing-grid">
+                <!-- Strategic Assessment -->
+                <div class="pricing-card">
+                    <div class="pricing-name">Strategic Assessment</div>
+                    <div class="pricing-description">Perfect for understanding your starting point</div>
+                    <div class="pricing-amount">$25K</div>
+                    <div class="pricing-period">4-8 weeks engagement</div>
+                    <ul class="pricing-features">
+                        <li>Current state analysis</li>
+                        <li>Competitive benchmarking</li>
+                        <li>Capability assessment</li>
+                        <li>Strategic recommendations</li>
+                        <li>Executive presentations</li>
+                    </ul>
+                    <button class="pricing-cta" data-anchor="contact">Get Started</button>
+                </div>
+
+                <!-- Growth Strategy -->
+                <div class="pricing-card featured">
+                    <div class="pricing-name">Growth Strategy</div>
+                    <div class="pricing-description">Accelerate your expansion and market impact</div>
+                    <div class="pricing-amount">$75K</div>
+                    <div class="pricing-period">3-month engagement</div>
+                    <ul class="pricing-features">
+                        <li>Market expansion strategy</li>
+                        <li>Go-to-market planning</li>
+                        <li>Competitive positioning</li>
+                        <li>Roadmap development</li>
+                        <li>Implementation support</li>
+                        <li>Monthly advisory sessions</li>
+                    </ul>
+                    <button class="pricing-cta" data-anchor="contact">Get Started</button>
+                </div>
+
+                <!-- Transformation Program -->
+                <div class="pricing-card">
+                    <div class="pricing-name">Transformation Program</div>
+                    <div class="pricing-description">Comprehensive enterprise transformation</div>
+                    <div class="pricing-amount">$200K</div>
+                    <div class="pricing-period">6-12 month engagement</div>
+                    <ul class="pricing-features">
+                        <li>Full strategy development</li>
+                        <li>Operating model redesign</li>
+                        <li>Change management</li>
+                        <li>Implementation oversight</li>
+                        <li>Team coaching</li>
+                        <li>Ongoing advisory support</li>
+                        <li>Quarterly reviews</li>
+                    </ul>
+                    <button class="pricing-cta" data-anchor="contact">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engagement Models -->
+    <section class="section">
+        <div class="container">
+            <div class="engagement-models">
+                <h2 class="section-title">Flexible Engagement Models</h2>
+                <p class="section-subtitle">Choose the approach that works best for your organization</p>
+
+                <div class="models-grid">
+                    <div class="card">
+                        <h4 style="color: var(--accent-indigo);">Project-Based</h4>
+                        <p>Fixed scope, timeline, and deliverables. Best for well-defined initiatives with clear objectives and outcomes.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-indigo);">Time & Materials</h4>
+                        <p>Flexible engagement with resources allocated as needed. Perfect for exploratory work or evolving requirements.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-indigo);">Retainer</h4>
+                        <p>Dedicated advisory partnership with ongoing access to our experts. Ideal for continuous transformation work.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-indigo);">Executive Advisory</h4>
+                        <p>Part-time strategic advisor relationship. Access to senior partners for strategic guidance and decision support.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-indigo);">Performance-Based</h4>
+                        <p>Aligned incentives with success metrics. Fee structure includes contingency based on outcome achievement.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-indigo);">Hybrid</h4>
+                        <p>Combination of models tailored to your specific situation. Mix project, retainer, and advisory components.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">What's Included in All Engagements</h2>
+            <p class="section-subtitle">Standard deliverables across all our services</p>
+
+            <div class="grid-4">
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Strategic Analysis</h3>
+                    <p>Deep-dive research, competitive analysis, and market insights forming the foundation of all recommendations.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Custom Roadmap</h3>
+                    <p>Phased implementation roadmap with clear milestones, timelines, and success metrics tailored to your needs.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Executive Presentations</h3>
+                    <p>Professional presentations for leadership, board, and stakeholder communication of strategy and progress.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Knowledge Transfer</h3>
+                    <p>Team training and capability building ensuring your organization can sustain progress beyond engagement.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Progress Reporting</h3>
+                    <p>Regular status reports, KPI tracking, and outcome measurement demonstrating value and ROI.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Ongoing Support</h3>
+                    <p>Post-engagement advisory availability and support to help sustain momentum and refine strategies.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Executive Coaching</h3>
+                    <p>Coaching and mentoring for leadership on strategy execution and organizational change management.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Benchmarking</h3>
+                    <p>Industry benchmarking and peer comparison to validate strategies and ensure competitive positioning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Pricing FAQs</h2>
+
+            <div class="faq-grid">
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Can you customize pricing?</h3>
+                    <p>Absolutely. These are starting points. We customize engagement scope, timeline, and fees to match your specific needs and budget constraints.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">What if we need ongoing support?</h3>
+                    <p>We offer retainer and advisory models for ongoing partnership. Many clients transition to annual retainers for continuous strategic guidance.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">Do you offer payment plans?</h3>
+                    <p>Yes. We can structure payments across engagement milestones or monthly installments depending on the scope and duration.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">What about scope creep?</h3>
+                    <p>We establish clear scope statements upfront with change management processes. Any scope changes are discussed and adjusted collaboratively.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">What's your ROI guarantee?</h3>
+                    <p>While we don't offer guarantees (outcomes depend on execution), our fees are structured to align with measurable value creation for clients.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-indigo); margin-bottom: 1rem;">How do you bill for travel?</h3>
+                    <p>Travel costs are either included in the fixed fee or billed separately depending on engagement scope and location.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section section-light">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <h2 class="section-title">Ready to Discuss Pricing?</h2>
+                <p class="section-subtitle">Let's talk about your strategic needs and develop a customized engagement plan with pricing that works for your organization.</p>
+                <button class="hero-cta" data-anchor="contact">Request Pricing Consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IK STRATEGIC SERVICES</h4>
+                    <p>Premium corporate strategy and advisory for forward-thinking enterprises.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="./services.premium.html">Services</a></li>
+                        <li><a href="./about.premium.html">About</a></li>
+                        <li><a href="./team.premium.html">Team</a></li>
+                        <li><a href="./case-studies.premium.html">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                        <li><a href="mailto:info@ikstrategic.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IK Strategic Services LLP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script src="./modern-app.js"></script>
+    <script src="./shared-app.js"></script>
+</body>
+</html>
