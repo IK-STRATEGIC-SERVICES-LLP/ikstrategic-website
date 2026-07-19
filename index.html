@@ -3,143 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="IK Strategic Services LLP - Corporate Strategy, Technology Consulting & Digital Growth Solutions for enterprises.">
-    <meta name="keywords" content="corporate strategy, consulting, digital transformation, technology consulting">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="IK Strategic Services LLP - Strategic Solutions">
-    <meta property="og:description" content="Corporate Strategy, Technology Consulting & Digital Growth.">
+    <meta name="description" content="IK Strategic Services LLP - Elite corporate strategy and advisory firm. Engineering the future of strategic transformation with cutting-edge consulting solutions.">
+    <meta name="keywords" content="corporate strategy, consulting, business transformation, strategic advisory, digital innovation">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta property="og:title" content="IK Strategic Services LLP - Engineering the Future of Corporate Strategy">
+    <meta property="og:description" content="Premium strategic consulting for forward-thinking enterprises. Transform, scale, and lead with IK Strategic.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ikstrategic.com/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="IK Strategic Services LLP">
     <link rel="canonical" href="https://ikstrategic.com/">
-    <title>IK Strategic Services LLP - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="author" content="IK Strategic Services LLP">
+    <title>IK Strategic Services LLP - Premium Corporate Strategy & Advisory</title>
+
+    <!-- Google Fonts - Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.css">
+
+    <link rel="stylesheet" href="./modern-style.css">
+    <link rel="stylesheet" href="./shared-style.css">
+
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"Organization","name":"IK Strategic Services LLP","url":"https://ikstrategic.com","email":"info@ikstrategic.com"}
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "IK Strategic Services LLP",
+      "url": "https://ikstrategic.com",
+      "email": "info@ikstrategic.com",
+      "description": "Premium corporate strategy and advisory firm specializing in business transformation and strategic innovation",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Business Inquiries",
+        "email": "info@ikstrategic.com"
+      }
+    }
     </script>
 </head>
 <body>
-    <!-- Hamburger Menu Toggle -->
-    <button class="menu-toggle" id="menuToggle">☰</button>
-    <div class="menu-overlay" id="menuOverlay"></div>
+    <!-- Interactive Particle Canvas Background -->
+    <canvas id="particle-canvas"></canvas>
 
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <img src="res/images/logo.svg" alt="IK Strategic Services" class="logo">
-        </div>
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li class="has-submenu" id="servicesMenu">
-                    <a href="services.html">Services</a>
-                    <ul class="submenu">
-                        <li><a href="services.html#ai-innovation">AI & Innovation</a></li>
-                        <li><a href="services.html#cloud-infrastructure">Cloud & Infrastructure</a></li>
-                        <li><a href="services.html#development-integration">Development & Integration</a></li>
-                        <li><a href="services.html#security-compliance">Security & Compliance</a></li>
-                        <li><a href="services.html#managed-services">Managed Services</a></li>
-                        <li><a href="services.html#digital-transformation">Digital Transformation</a></li>
-                        <li><a href="services.html#strategic-consulting">Strategic Consulting</a></li>
-                    </ul>
-                </li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+    <!-- Sticky Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="./index.html" class="navbar-logo">IK STRATEGIC</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#services">Services</a></li>
+                <li class="nav-item"><a href="#metrics">Impact</a></li>
+                <li class="nav-item"><a href="./services.premium.html">All Services</a></li>
+                <li class="nav-item"><a href="./about.premium.html">About</a></li>
+                <li class="nav-item"><a href="./contact.premium.html" class="cta-pill">Get Started</a></li>
             </ul>
-        </nav>
-        <div class="sidebar-footer">
-            <p>&copy; 2026 IK Strategic Services LLP</p>
         </div>
-    </aside>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Strategic Solutions for Digital Growth</h1>
-                <p>Corporate Strategy | Technology Consulting | Digital Transformation</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="cta-button">Get Started</a>
-                    <a href="services.html" class="cta-button secondary">Learn More</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Engineering the Future of Corporate Strategy</h1>
+            <p class="hero-subtitle">Transform your enterprise with cutting-edge strategic intelligence, global perspective, and innovation-driven execution.</p>
+            <button class="hero-cta" data-anchor="contact">Start Your Transformation</button>
+        </div>
+    </section>
+
+    <!-- Services Bento Grid -->
+    <section class="section section-light" id="services">
+        <div class="container">
+            <h2 class="section-title">Strategic Capabilities</h2>
+            <p class="section-subtitle">Elite advisory solutions for enterprise transformation</p>
+
+            <div class="services-grid">
+                <!-- Business Transformation Card -->
+                <div class="card" style="grid-column: span 2;">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                            <polyline points="13 2 13 9 20 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Business Transformation</h3>
+                    <p>Reimagine your operating model with data-driven strategies that drive sustainable growth and market leadership.</p>
+                </div>
+
+                <!-- Growth Scaling Card -->
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <polyline points="19 12 12 19 5 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Growth Scaling</h3>
+                    <p>Accelerate revenue expansion through market penetration, innovation, and strategic partnerships.</p>
+                </div>
+
+                <!-- Risk Mitigation Card -->
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Risk Mitigation</h3>
+                    <p>Navigate uncertainty with proactive risk frameworks and resilience-building strategies for long-term stability.</p>
+                </div>
+
+                <!-- Operations Optimization Card -->
+                <div class="card" style="grid-row: span 2;">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <path d="M12 8v-2m4.22-6.22l1.42 1.42M16 12h2m-6 6v2m-4.22 1.22l1.42-1.42M8 12H6M6.22 5.78l1.42-1.42"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                        </svg>
+                    </div>
+                    <h3>Operations Excellence</h3>
+                    <p>Optimize processes, enhance agility, and drive operational excellence across your entire enterprise ecosystem.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Welcome Section -->
-        <section class="welcome">
-            <div class="container">
-                <h2>Welcome to IK Strategic</h2>
-                <p>We are a leading consulting firm specializing in corporate strategy, technology solutions, and digital transformation. Our expertise helps organizations navigate complex business challenges and seize growth opportunities in the digital age.</p>
-                <div class="highlight-cards">
-                    <div class="card">
-                        <h3>Expert Team</h3>
-                        <p>Seasoned consultants with proven expertise across industries</p>
-                    </div>
-                    <div class="card">
-                        <h3>Proven Results</h3>
-                        <p>Track record of delivering measurable business impact</p>
-                    </div>
-                    <div class="card">
-                        <h3>Innovation</h3>
-                        <p>Cutting-edge solutions tailored to your unique needs</p>
-                    </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="./services.premium.html" class="hero-cta">Explore All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="section" id="metrics">
+        <div class="container">
+            <h2 class="section-title">Our Impact</h2>
+            <p class="section-subtitle">Proven results across our global client portfolio</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">10X</div>
+                    <div class="metric-label">Average Growth Impact</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">99%</div>
+                    <div class="metric-label">Client Retention Rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">50+</div>
+                    <div class="metric-label">Enterprise Transformations</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">15+</div>
+                    <div class="metric-label">Years of Excellence</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer>
+    <!-- Contact Section -->
+    <section class="section section-light" id="contact">
+        <div class="container">
+            <h2 class="section-title">Begin Your Transformation</h2>
+            <p class="section-subtitle">Connect with our strategic advisors to explore how IK Strategic can elevate your enterprise.</p>
+
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your Name" required class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="your@company.com" required class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="company" placeholder="Your Company" required class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Tell us about your strategic priorities..." required class="form-input form-textarea"></textarea>
+                    </div>
+
+                    <button type="submit" class="form-submit">Send Inquiry</button>
+                    <div class="form-feedback" id="formFeedback"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
             <div class="footer-content">
-                <p>Email: <a href="mailto:info@ikstrategic.com">info@ikstrategic.com</a></p>
-                <div class="social-links">
-                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                    <a href="https://twitter.com" target="_blank">Twitter</a>
+                <div class="footer-section">
+                    <h4>IK STRATEGIC SERVICES</h4>
+                    <p>Premium corporate strategy and advisory for forward-thinking enterprises.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="./services.premium.html">Services</a></li>
+                        <li><a href="./about.premium.html">About</a></li>
+                        <li><a href="./team.premium.html">Team</a></li>
+                        <li><a href="./case-studies.premium.html">Case Studies</a></li>
+                        <li><a href="./pricing.premium.html">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                        <li><a href="mailto:info@ikstrategic.com">Email</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-    </main>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IK Strategic Services LLP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    <script>
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const sidebar = document.getElementById('sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-        });
-
-        menuOverlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-
-        // Close menu when a link is clicked
-        const sidebarLinks = sidebar.querySelectorAll('a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                menuOverlay.classList.remove('active');
-            });
-        });
-
-        // Services submenu toggle
-        const servicesMenu = document.getElementById('servicesMenu');
-        if (servicesMenu) {
-            const servicesLink = servicesMenu.querySelector('a:first-child');
-            servicesLink.addEventListener('click', (e) => {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    servicesMenu.classList.toggle('open');
-                    servicesLink.classList.toggle('submenu-open');
-                }
-            });
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script src="./modern-app.js"></script>
+    <script src="./shared-app.js"></script>
 </body>
 </html>
