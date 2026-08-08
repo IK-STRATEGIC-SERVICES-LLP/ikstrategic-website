@@ -30,6 +30,7 @@ export function StructuredData() {
         address: {
           '@type': 'PostalAddress',
           addressLocality: ORG.addressLocality,
+          addressRegion: ORG.addressRegion,
           addressCountry: ORG.addressCountry,
         },
         sameAs: ORG.sameAs,

@@ -6,43 +6,44 @@ import Link from 'next/link';
 
 import { LogoMark } from '@/components/ui/logo';
 import { RevealGroup, RevealItem } from '@/components/ui/reveal';
+import { ORG } from '@/lib/site';
 
 const COLUMNS = [
   {
     heading: 'Services',
     links: [
-      { label: 'AI & Automation', href: '#services' },
-      { label: 'Web Development', href: '#services' },
-      { label: 'Mobile App Development', href: '#services' },
-      { label: 'Consulting & Resourcing', href: '#services' },
-      { label: 'How We Build', href: '#methodology' },
+      { label: 'AI & Automation', href: '/services#ai-automation' },
+      { label: 'Web Development', href: '/services#web' },
+      { label: 'Mobile App Development', href: '/services#mobile' },
+      { label: 'Consulting & Resourcing', href: '/services#consulting' },
+      { label: 'How We Build', href: '/#methodology' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About IK Strategic', href: '#enterprise' },
-      { label: 'Our Methodology', href: '#methodology' },
-      { label: 'Case Studies', href: '#enterprise' },
-      { label: 'Insights', href: '#enterprise' },
+      { label: 'About IK Strategic', href: '/about' },
+      { label: 'How We Work', href: '/about#principles' },
+      { label: 'Our Structure', href: '/about' },
+      { label: 'Our Methodology', href: '/#methodology' },
     ],
   },
   {
     heading: 'Careers',
     links: [
-      { label: 'Open Roles', href: '#careers' },
-      { label: 'Life at IK', href: '#careers' },
-      { label: 'Engineering Culture', href: '#careers' },
-      { label: 'Graduate Programme', href: '#careers' },
+      { label: 'Open Roles', href: '/#careers' },
+      { label: 'Life at IK', href: '/#careers' },
+      { label: 'Engineering Culture', href: '/about' },
+      { label: 'Apply', href: '/contact' },
     ],
   },
   {
     heading: 'Contact',
     links: [
-      { label: 'Book a Consultation', href: '#contact' },
-      { label: 'hello@ikstrategic.com', href: 'mailto:hello@ikstrategic.com' },
-      { label: 'Partner Enquiries', href: '#contact' },
-      { label: 'Support', href: '#contact' },
+      { label: 'Book a Consultation', href: '/contact' },
+      { label: ORG.email, href: `mailto:${ORG.email}` },
+      { label: 'Partner Enquiries', href: '/contact' },
+      { label: 'Support', href: '/contact' },
     ],
   },
 ];
@@ -89,15 +90,15 @@ export function SiteFooter() {
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 shrink-0 text-electric-400" strokeWidth={1.75} />
                 <a
-                  href="mailto:hello@ikstrategic.com"
+                  href={`mailto:${ORG.email}`}
                   className="transition-colors duration-300 hover:text-white"
                 >
-                  hello@ikstrategic.com
+                  {ORG.email}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 shrink-0 text-electric-400" strokeWidth={1.75} />
-                Mumbai, India — serving clients globally
+                Pune, India — serving clients globally
               </li>
             </ul>
 

@@ -68,7 +68,7 @@ export function Hero() {
 
               <motion.div variants={fadeUpItem} className="mt-10 flex flex-wrap items-center gap-4">
                 <ButtonLink
-                  href="#contact"
+                  href="/contact"
                   variant="accent"
                   size="lg"
                   icon={<ArrowRight className="h-4 w-4" strokeWidth={2} />}
@@ -76,7 +76,7 @@ export function Hero() {
                   Start your transformation
                 </ButtonLink>
                 <ButtonLink
-                  href="#services"
+                  href="/services"
                   variant="onDark"
                   size="lg"
                   icon={<PlayCircle className="h-4 w-4" strokeWidth={1.75} />}

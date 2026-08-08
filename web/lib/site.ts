@@ -24,9 +24,10 @@ export const ORG = {
   legalName: 'IK Strategic Services LLP',
   description:
     'IK Strategic Services LLP delivers digital transformation and intelligent automation for the enterprise — AI systems, web and mobile platforms, and expert engineering talent.',
-  email: 'hello@ikstrategic.com', // ⚠️ verify
-  addressLocality: 'Mumbai', // ⚠️ verify
-  addressCountry: 'IN', // ⚠️ verify
+  email: 'hello@ikstrategic.com', // ⚠️ still unverified
+  addressLocality: 'Pune', // confirmed
+  addressRegion: 'Maharashtra', // confirmed (state containing Pune)
+  addressCountry: 'IN', // confirmed
   /** Public profiles. Remove any that do not exist — do not ship dead links. */
   sameAs: [
     'https://www.linkedin.com/', // ⚠️ replace with the real company page

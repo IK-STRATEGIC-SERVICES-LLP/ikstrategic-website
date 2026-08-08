@@ -10,11 +10,13 @@ import { LogoMark } from '@/components/ui/logo';
 import { EASE_OUT_EXPO, springSoft } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
+// Real routes, not bare hashes — a bare "#services" resolves against whatever
+// page you are already on, so it broke the moment sub-pages existed.
 const NAV = [
-  { label: 'Services', href: '#services' },
-  { label: 'How We Build', href: '#methodology' },
-  { label: 'Why IK', href: '#enterprise' },
-  { label: 'Careers', href: '#careers' },
+  { label: 'Services', href: '/services' },
+  { label: 'How We Build', href: '/#methodology' },
+  { label: 'About', href: '/about' },
+  { label: 'Careers', href: '/#careers' },
 ];
 
 export function SiteHeader() {
@@ -92,7 +94,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:block">
             <ButtonLink
-              href="#contact"
+              href="/contact"
               variant={onDark ? 'onDark' : 'primary'}
               icon={<ArrowUpRight className="h-4 w-4" strokeWidth={2} />}
             >
@@ -149,7 +151,7 @@ export function SiteHeader() {
               ))}
               <div className="mt-3 px-1">
                 <ButtonLink
-                  href="#contact"
+                  href="/contact"
                   size="lg"
                   fullWidth
                   icon={<ArrowUpRight className="h-4 w-4" />}

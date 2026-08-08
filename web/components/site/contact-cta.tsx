@@ -4,6 +4,7 @@ import { ArrowRight, CalendarCheck, Mail } from 'lucide-react';
 
 import { ButtonLink } from '@/components/ui/button';
 import { RevealGroup, RevealItem } from '@/components/ui/reveal';
+import { ORG } from '@/lib/site';
 
 const STEPS = [
   { step: 'Step 01', title: 'Discovery call', body: 'Thirty minutes with an engineer, not a salesperson.' },
@@ -43,7 +44,7 @@ export function ContactCta() {
 
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <ButtonLink
-                    href="mailto:hello@ikstrategic.com"
+                    href="/contact"
                     variant="accent"
                     size="lg"
                     icon={<ArrowRight className="h-4 w-4" strokeWidth={2} />}
@@ -51,12 +52,12 @@ export function ContactCta() {
                     Book a consultation
                   </ButtonLink>
                   <ButtonLink
-                    href="mailto:hello@ikstrategic.com"
+                    href={`mailto:${ORG.email}`}
                     variant="onDark"
                     size="lg"
                     icon={<Mail className="h-4 w-4" strokeWidth={1.75} />}
                   >
-                    hello@ikstrategic.com
+                    {ORG.email}
                   </ButtonLink>
                 </div>
               </div>

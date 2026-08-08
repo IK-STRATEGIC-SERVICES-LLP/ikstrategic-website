@@ -134,7 +134,7 @@ export function EnterpriseValue() {
             </div>
             <div className="flex lg:col-span-4 lg:justify-end">
               <ButtonLink
-                href="#contact"
+                href="/contact"
                 size="lg"
                 icon={<ArrowRight className="h-4 w-4" strokeWidth={2} />}
               >

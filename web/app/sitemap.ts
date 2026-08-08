@@ -5,19 +5,23 @@ import { SITE_URL } from '@/lib/site';
 /**
  * Replaces the old static /sitemap.xml.
  *
- * Only the landing page exists today. The old sitemap also listed
- * /services.html, /about.html, /products.html and /contact.html — those are
- * 308-redirected in next.config.mjs and are deliberately NOT listed here,
- * because a sitemap should only ever contain canonical 200s. Add real entries
- * as those pages get built.
+ * Only canonical 200s belong here — the legacy .html paths are 308-redirected
+ * in next.config.mjs and are deliberately absent.
  */
+const ROUTES = [
+  { path: '/', priority: 1, changeFrequency: 'weekly' },
+  { path: '/services', priority: 0.9, changeFrequency: 'weekly' },
+  { path: '/about', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/contact', priority: 0.7, changeFrequency: 'monthly' },
+] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: `${SITE_URL}/`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-  ];
+  const lastModified = new Date();
+
+  return ROUTES.map((route) => ({
+    url: `${SITE_URL}${route.path}`,
+    lastModified,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }));
 }
