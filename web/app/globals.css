@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-navy: 8 18 42;
+    --brand-electric: 34 211 238;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* Sticky header offset for in-page anchors. */
+  [id] {
+    scroll-margin-top: 6.5rem;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-navy-800 antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-electric-300/40 text-navy-950;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-electric-400 ring-offset-2 ring-offset-white;
+  }
+
+  .on-dark :focus-visible {
+    @apply ring-offset-navy-950;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-eyebrow uppercase;
+  }
+
+  /* Thin hairline used to separate bento cells without heavy borders. */
+  .hairline {
+    @apply border-canvas-line;
+  }
+
+  .card-base {
+    @apply relative overflow-hidden rounded-3xl border border-canvas-line bg-white shadow-card
+           transition-shadow duration-500 ease-out-expo hover:shadow-card-hover;
+  }
+
+  .card-dark {
+    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04]
+           backdrop-blur-sm transition-colors duration-500 ease-out-expo hover:border-electric-400/40;
+  }
+}
+
+@layer utilities {
+  .text-gradient-accent {
+    @apply bg-accent-sweep bg-clip-text text-transparent;
+  }
+
+  /* Fades a decorative grid out toward the edges. */
+  .mask-fade-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 78%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 12%, black 78%, transparent);
+  }
+
+  .mask-fade-radial {
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 35%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 35%, transparent 100%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* Respect the OS-level reduced-motion preference across every animation. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
