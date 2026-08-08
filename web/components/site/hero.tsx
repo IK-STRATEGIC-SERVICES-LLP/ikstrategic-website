@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react';
 
-import { HeroVisual } from '@/components/site/hero-visual';
+import { DigitalEcosystem } from '@/components/site/digital-ecosystem';
 import { ButtonLink } from '@/components/ui/button';
 import { fadeUpItem, heroContainer, lineReveal } from '@/lib/motion';
 
@@ -107,9 +107,9 @@ export function Hero() {
             </div>
 
             {/* ---------- Media ---------- */}
-            <div className="relative lg:col-span-5">
-              <HeroVisual />
-            </div>
+            <motion.div variants={fadeUpItem} className="relative lg:col-span-5">
+              <DigitalEcosystem className="h-[22rem] w-full sm:h-[26rem] lg:h-[31rem]" />
+            </motion.div>
           </div>
 
           {/* ---------- Trust rail ---------- */}
