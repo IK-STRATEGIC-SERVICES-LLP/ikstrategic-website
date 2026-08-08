@@ -122,7 +122,7 @@ export function SiteFooter() {
           <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">
             {COLUMNS.map((column) => (
               <RevealItem key={column.heading}>
-                <h3 className="text-eyebrow uppercase text-navy-400">{column.heading}</h3>
+                <h2 className="text-eyebrow uppercase text-navy-400">{column.heading}</h2>
                 <ul className="mt-5 space-y-3">
                   {column.links.map((link) => (
                     <li key={link.label}>

@@ -121,9 +121,11 @@ export function EnterpriseValue() {
                 <span aria-hidden className="h-px w-6 bg-electric-500/70" />
                 Careers
               </span>
-              <h3 className="mt-5 font-display text-display-md text-navy-950 text-balance">
+              {/* h2, not h3 — careers is a peer topic to the section above it,
+                  not a child of it. Jumping to h3 would skip a level. */}
+              <h2 className="mt-5 font-display text-display-md text-navy-950 text-balance">
                 Engineers who would rather build the method than follow one.
-              </h3>
+              </h2>
               <p className="mt-4 max-w-2xl text-body-lg text-navy-600 text-pretty">
                 We hire senior, we stay small per team, and we give people direct ownership of
                 systems that matter. If you want to work where AI is part of the toolchain rather

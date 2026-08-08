@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Sora } from 'next/font/google';
 
+import { StructuredData } from '@/components/seo/structured-data';
 import { SiteFooter } from '@/components/site/site-footer';
 import { SiteHeader } from '@/components/site/site-header';
-import { SITE_URL } from '@/lib/site';
+import { ORG, SITE_URL } from '@/lib/site';
 
 import './globals.css';
 
@@ -37,20 +38,38 @@ export const metadata: Metadata = {
     'LLMOps',
     'RAG',
   ],
+  applicationName: ORG.name,
+  authors: [{ name: ORG.name, url: SITE_URL }],
+  creator: ORG.name,
+  publisher: ORG.name,
+  // Stop iOS/Android auto-linking stray numbers and addresses in body copy.
+  formatDetection: { telephone: false, address: false, email: false },
   openGraph: {
     type: 'website',
     url: SITE_URL,
-    siteName: 'IK Strategic Services LLP',
+    siteName: ORG.name,
+    locale: 'en_US',
     title: 'Digital transformation, engineered with intelligence.',
     description:
       'AI and automation, web and mobile platforms, and senior engineering talent — delivered by an agile enterprise partner.',
+    // og:image comes from app/opengraph-image.tsx via the file convention.
   },
   twitter: {
     card: 'summary_large_image',
     title: 'IK Strategic Services LLP',
     description: 'Digital transformation and intelligent automation for the enterprise.',
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -62,6 +81,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable}`}>
+      <head>
+        <StructuredData />
+      </head>
       <body className="min-h-screen bg-canvas">
         <a
           href="#main"
