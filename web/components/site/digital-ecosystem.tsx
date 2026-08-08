@@ -38,6 +38,8 @@ const AZURE: RGB = [64, 156, 255];
 const INDIGO: RGB = [129, 140, 248];
 const WHITE: RGB = [232, 246, 255];
 const GOLD: RGB = [247, 196, 104];
+/** Warm nucleus inside each node-sphere — the counterpoint to all the cyan. */
+const CORAL: RGB = [255, 124, 98];
 
 const rgba = (c: RGB, a: number) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
@@ -76,8 +78,10 @@ const smooth = (k: number) => {
 };
 
 /* ---- Sequence timing (seconds) ---- */
-const T_LATTICE = 6.0;
-const T_ZOOM = 5.0; // slow push-in
+const T_LATTICE = 5.0;
+// Long enough that the mid-zoom — nodes resolving into connected
+// atom-spheres — is a stage you can read, not a flash.
+const T_ZOOM = 7.0;
 const T_ATOM = 8.0;
 const T_PULL = 3.5;
 const CYCLE = T_LATTICE + T_ZOOM + T_ATOM + T_PULL;
@@ -147,6 +151,46 @@ export function DigitalEcosystem({ className }: { className?: string }) {
       ctx.globalAlpha = 1;
     };
 
+    /**
+     * A node rendered close enough to resolve: a cyan shell of orbiting dots
+     * around a warm nucleus. This is the mid-zoom stage — the lattice stops
+     * being dots and becomes a grid of connected atoms.
+     */
+    const drawNodeSphere = (
+      x: number, y: number, R: number, alpha: number, seed: number, t: number,
+    ) => {
+      glow(x, y, R * 2.0, CYAN, 0.3 * alpha, 0.85);
+
+      const spin = t * 0.5 + seed;
+      for (let ring = 1; ring <= 3; ring++) {
+        const rr = R * (0.42 + ring * 0.19);
+        const dots = 8 + ring * 6;
+        const squash = 0.28 + 0.26 * Math.abs(Math.sin(t * 0.4 + seed + ring));
+        for (let i = 0; i < dots; i++) {
+          const ang = (i / dots) * Math.PI * 2 + spin * (ring % 2 ? 1 : -1);
+          glow(
+            x + Math.cos(ang) * rr,
+            y + Math.sin(ang) * rr * squash,
+            R * 0.06, CYAN, 0.85 * alpha, 0.1,
+          );
+        }
+      }
+
+      ctx.strokeStyle = rgba(CYAN, 0.5 * alpha);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(x, y, R * 0.98, R * 0.34, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Warm nucleus, painted source-over rather than additively: coral on top
+      // of the node's own cyan halo sums to white and loses its hue entirely.
+      ctx.globalCompositeOperation = 'source-over';
+      glow(x, y, R * 0.36, CORAL, 0.55 * alpha, 0.55);
+      glow(x, y, R * 0.17, CORAL, 0.95 * alpha, 0.1);
+      ctx.globalCompositeOperation = 'lighter';
+      glow(x, y, R * 0.06, WHITE, alpha, 0.05);
+    };
+
     /* ---------------- scene ---------------- */
 
     let lattice: Vec3[] = [];
@@ -161,27 +205,33 @@ export function DigitalEcosystem({ className }: { className?: string }) {
     function buildScene() {
       const area = width * height;
 
-      // Dense enough to read as a woven shell, sparse enough to stay crisp.
-      const count = Math.round(Math.min(320, Math.max(150, area / 1400)));
+      // Fewer, larger triangles read far better than a fine mesh — the bonds
+      // are the point, and at high density they collapse into a haze.
+      const count = Math.round(Math.min(230, Math.max(110, area / 2100)));
       lattice = fibonacciSphere(count, LATTICE_R);
 
-      // Connect each vertex to its immediate neighbours — the woven mesh.
-      // Derive the threshold from the *actual* minimum spacing rather than a
-      // closed-form guess: an estimate below true spacing yields no mesh at all.
+      // Connect each vertex to its k nearest neighbours — this is what makes
+      // the sphere read as a woven lattice rather than a cloud of dots.
+      //
+      // A distance threshold does NOT work here: a Fibonacci sphere puts a few
+      // abnormally close pairs near the poles, and any threshold derived from
+      // the global minimum spacing collapses to near-zero and yields no mesh.
+      // k-nearest is scale-free and guarantees uniform connectivity.
+      const K = 6;
+      const seen = new Set<string>();
       links = [];
-      let minSpacing = Infinity;
       for (let i = 0; i < lattice.length; i++) {
-        for (let j = i + 1; j < lattice.length; j++) {
-          const a = lattice[i], b = lattice[j];
-          const dd = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
-          if (dd < minSpacing) minSpacing = dd;
-        }
-      }
-      const threshold = minSpacing * 1.45;
-      for (let i = 0; i < lattice.length; i++) {
-        for (let j = i + 1; j < lattice.length; j++) {
-          const a = lattice[i], b = lattice[j];
-          if (Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) < threshold) links.push([i, j]);
+        const a = lattice[i];
+        const near = lattice
+          .map((b, j) => ({ j, d: Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) }))
+          .filter((o) => o.j !== i)
+          .sort((p, q) => p.d - q.d)
+          .slice(0, K);
+        for (const n of near) {
+          const key = i < n.j ? `${i}-${n.j}` : `${n.j}-${i}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          links.push(i < n.j ? [i, n.j] : [n.j, i]);
         }
       }
 
@@ -201,9 +251,9 @@ export function DigitalEcosystem({ className }: { className?: string }) {
       });
 
       shells = [
-        { r: 1.35, incl: 0.15, node: 0.0, speed: 1.15, phase: 0.0 },
-        { r: 1.75, incl: 1.15, node: 1.1, speed: -0.85, phase: 2.1 },
-        { r: 2.15, incl: -0.95, node: 2.4, speed: 0.62, phase: 4.0 },
+        { r: 1.25, incl: 0.15, node: 0.0, speed: 1.15, phase: 0.0 },
+        { r: 1.6, incl: 1.15, node: 1.1, speed: -0.85, phase: 2.1 },
+        { r: 1.95, incl: -0.95, node: 2.4, speed: 0.62, phase: 4.0 },
       ];
     }
 
@@ -266,8 +316,11 @@ export function DigitalEcosystem({ className }: { className?: string }) {
         }
 
         const tgt = rotated[targetIdx];
-        const push = 1 + focus * 3.4;                    // dolly in
-        const scale = unit * 1.25 * (1 + focus * 0.9);   // and magnify
+        // Push and magnify gently. Spread the lattice too fast and the nodes
+        // leave the frame before they are big enough to resolve, leaving only
+        // long bonds crossing empty space.
+        const push = 1 + focus * 1.7;
+        const scale = unit * 1.25 * (1 + focus * 0.9);
 
         // Recentre on the target vertex as the camera closes on it.
         const place = (v: Vec3): Vec3 => ({
@@ -278,11 +331,14 @@ export function DigitalEcosystem({ className }: { className?: string }) {
 
         const pts = rotated.map((v) => perspective(place(v), scale));
 
-        ctx.lineWidth = 1;
+        // Bonds carry the structure, so they are drawn as strongly as the
+        // vertices — a faint mesh reads as scattered dots, not a lattice.
+        ctx.lineWidth = 1.15;
         for (const [i, j] of links) {
           const a = pts[i], b = pts[j];
           const depth = (a.d + b.d) / 2;
-          ctx.strokeStyle = rgba(AZURE, 0.34 * depth * depth * depth * fade);
+          const near = depth * depth * depth;
+          ctx.strokeStyle = rgba(AZURE, 0.72 * near * fade);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -290,28 +346,48 @@ export function DigitalEcosystem({ className }: { className?: string }) {
         }
 
         // Node sizes track `unit`, not fixed pixels, so the sphere keeps its
-        // density and weight at any canvas size.
-        const halo = unit * 0.05;
-        const core = unit * 0.021;
+        // density and weight at any canvas size. Three layers per vertex so
+        // each reads as a small glowing sphere rather than a flat dot.
+        const halo = unit * 0.1;
+        const shell = unit * 0.045;
+        const core = unit * 0.022;
+
+        // Nodes swell as the camera closes, so mid-zoom they are large enough
+        // to resolve into structured spheres — the stage between "lattice of
+        // dots" and "one atom".
+        const grow = 1 + focus * 3.6;
+        // Nodes hold their brightness far longer than the bonds: they are the
+        // subject of the mid-zoom, so fading them on the bond curve would gut
+        // the very stage this transition exists to show.
+        const nodeFade = (1 - focus) ** 0.55;
 
         for (let i = 0; i < pts.length; i++) {
           const q = pts[i];
           const d3 = q.d * q.d * q.d;
           const isTarget = i === targetIdx;
-          const flick = 0.78 + 0.22 * Math.sin(t * 2.1 + i * 0.6);
-          // The target vertex runs hot to telegraph the push-in.
-          glow(q.x, q.y, halo * (isTarget ? 1.9 : 1) * q.d, CYAN,
-            (isTarget ? 0.5 : 0.26) * d3 * fade, 0.5);
-          glow(q.x, q.y, core * (isTarget ? 1.6 : 1) * q.d, WHITE,
-            (isTarget ? 1 : 0.8) * d3 * flick * fade, 0.08);
+          // The target outgrows its neighbours so the move lands on one node.
+          const k = (isTarget ? 2.2 : 1) * grow;
+          const flick = 0.82 + 0.18 * Math.sin(t * 2.1 + i * 0.6);
+          const sphereR = shell * k * q.d;
+
+          if (sphereR > 8) {
+            // Close enough to resolve internal structure.
+            drawNodeSphere(q.x, q.y, sphereR * 2, Math.min(1, d3) * nodeFade, i * 1.7, t);
+          } else {
+            // The target vertex runs hot to telegraph the push-in.
+            glow(q.x, q.y, halo * k * q.d, CYAN, (isTarget ? 0.6 : 0.38) * d3 * nodeFade, 0.7);
+            glow(q.x, q.y, sphereR, CYAN, (isTarget ? 0.9 : 0.62) * d3 * nodeFade, 0.25);
+            glow(q.x, q.y, core * k * q.d, WHITE, d3 * flick * nodeFade, 0.05);
+          }
         }
       }
 
       /* ================= ATOM ================= */
       if (focus > 0.005) {
         const a = focus * focus;
-        // Outermost shell (r 2.15) stays inside half the shorter edge.
-        const atomScale = unit * (0.22 + focus * 0.4);
+        // Outermost shell (r 1.95) lands at ~0.72 × 1.95 × unit, inside half
+        // the shorter edge (unit is 0.3 × the shorter edge).
+        const atomScale = unit * (0.26 + focus * 0.46);
         const spinY = t * 0.34;
         const spinX = Math.sin(t * 0.22) * 0.4;
 
@@ -328,7 +404,7 @@ export function DigitalEcosystem({ className }: { className?: string }) {
             return rotX(rotY(rotX(base, s.incl), s.node), spinX * 0.5);
           };
 
-          ctx.strokeStyle = rgba(isAccent ? GOLD : AZURE, (isAccent ? 0.2 : 0.16) * a);
+          ctx.strokeStyle = rgba(isAccent ? GOLD : AZURE, (isAccent ? 0.34 : 0.26) * a);
           ctx.lineWidth = 1;
           ctx.beginPath();
           const STEPS = 72;
@@ -345,11 +421,11 @@ export function DigitalEcosystem({ className }: { className?: string }) {
             // Sizes track atomScale, not fixed pixels, so proportions hold
             // at any canvas size.
             if (k === 0) {
-              glow(q.x, q.y, atomScale * 0.14 * q.d, headColour, 0.35 * a, 0.6);
-              glow(q.x, q.y, atomScale * 0.058 * q.d, headColour, 0.9 * a, 0.1);
-              glow(q.x, q.y, atomScale * 0.023 * q.d, WHITE, 0.95 * a, 0.05);
+              glow(q.x, q.y, atomScale * 0.2 * q.d, headColour, 0.42 * a, 0.7);
+              glow(q.x, q.y, atomScale * 0.085 * q.d, headColour, 0.95 * a, 0.12);
+              glow(q.x, q.y, atomScale * 0.035 * q.d, WHITE, a, 0.05);
             } else {
-              glow(q.x, q.y, atomScale * 0.036 * q.d, trailColour, 0.34 * fadeK * a, 0.15);
+              glow(q.x, q.y, atomScale * 0.05 * q.d, trailColour, 0.42 * fadeK * a, 0.18);
             }
           }
         });
@@ -367,9 +443,9 @@ export function DigitalEcosystem({ className }: { className?: string }) {
           const q = perspective(rotX(rotY(local, spinY * 1.35), spinX), atomScale);
           const d2 = q.d * q.d;
           const colour = n.proton ? CYAN : INDIGO;
-          glow(q.x, q.y, atomScale * 0.16 * q.d, colour, 0.3 * d2 * a, 0.55);
-          glow(q.x, q.y, atomScale * 0.07 * q.d, colour, 0.55 * d2 * a, 0.15);
-          glow(q.x, q.y, atomScale * 0.028 * q.d, WHITE, 0.85 * d2 * a, 0.05);
+          glow(q.x, q.y, atomScale * 0.24 * q.d, colour, 0.34 * d2 * a, 0.7);
+          glow(q.x, q.y, atomScale * 0.11 * q.d, colour, 0.66 * d2 * a, 0.2);
+          glow(q.x, q.y, atomScale * 0.045 * q.d, WHITE, 0.95 * d2 * a, 0.05);
         }
       }
 
@@ -429,9 +505,9 @@ export function DigitalEcosystem({ className }: { className?: string }) {
         // ending on a hard rectangle.
         style={{
           WebkitMaskImage:
-            'radial-gradient(ellipse 80% 80% at 50% 50%, #000 55%, transparent 100%)',
+            'radial-gradient(ellipse 95% 95% at 50% 50%, #000 72%, transparent 100%)',
           maskImage:
-            'radial-gradient(ellipse 80% 80% at 50% 50%, #000 55%, transparent 100%)',
+            'radial-gradient(ellipse 95% 95% at 50% 50%, #000 72%, transparent 100%)',
         }}
       />
       <span className="sr-only">
