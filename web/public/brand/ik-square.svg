@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="IK Strategic Services LLP">
+  <!--
+    Full-bleed square, no corner radius and no transparency.
+    For iOS home-screen and Android maskable icons: the platform applies its own
+    mask, so a pre-rounded icon gets double-rounded and transparent corners
+    render black. Use ik-tile.svg anywhere the rounding is ours to control.
+  -->
+  <defs>
+    <linearGradient id="ikSquareGrad" x1="33" y1="46" x2="48" y2="17" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#818CF8"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" fill="#08122A"/>
+  <rect x="15" y="17" width="6" height="30" rx="3" fill="#FFFFFF"/>
+  <rect x="27" y="17" width="6" height="30" rx="3" fill="#FFFFFF"/>
+  <path d="M33 32L47 18.5" stroke="url(#ikSquareGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M33 32L45.5 45" stroke="url(#ikSquareGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+</svg>
