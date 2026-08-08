@@ -3,6 +3,7 @@ import { Inter, Sora } from 'next/font/google';
 
 import { SiteFooter } from '@/components/site/site-footer';
 import { SiteHeader } from '@/components/site/site-header';
+import { SITE_URL } from '@/lib/site';
 
 import './globals.css';
 
@@ -18,8 +19,6 @@ const sora = Sora({
   variable: '--font-display',
   display: 'swap',
 });
-
-const SITE_URL = 'https://www.ikstrategic.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
