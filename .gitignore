@@ -1,0 +1,7 @@
+# Machine-local Claude Code settings (permissions, local overrides)
+.claude/settings.local.json
+
+# Safety net — web/ has its own .gitignore, this catches strays at the root
+node_modules/
+.next/
+.vercel

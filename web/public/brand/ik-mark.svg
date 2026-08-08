@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="IK Strategic Services LLP">
+  <defs>
+    <linearGradient id="ikMarkGrad" x1="32" y1="48" x2="52" y2="15" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <rect x="11.5" y="14.75" width="7" height="36" rx="3.5" fill="#08122A"/>
+  <rect x="25.5" y="14.75" width="7" height="36" rx="3.5" fill="#08122A"/>
+  <path d="M32.5 32.75L50 16.25" stroke="url(#ikMarkGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M32.5 32.75L48 47.75" stroke="url(#ikMarkGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
+</svg>
