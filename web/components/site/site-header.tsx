@@ -42,27 +42,44 @@ export function SiteHeader() {
       )}
     >
       <div className="container flex h-20 items-center justify-between gap-6">
-        <Link href="/" className="group flex items-center gap-3" aria-label="IK Strategic Services home">
+        {/*
+          Mark only at rest; the wordmark unfurls to its right on hover/focus.
+          The name is always in the DOM for screen readers and SEO — the reveal
+          is purely visual (width + opacity), never conditional rendering.
+        */}
+        <Link
+          href="/"
+          className="group flex items-center"
+          aria-label="IK Strategic Services LLP — home"
+        >
           <LogoMark
             tone={onDark ? 'dark' : 'light'}
             className="h-9 w-9 shrink-0 transition-transform duration-500 ease-out-expo group-hover:scale-[1.06]"
           />
-          <span className="hidden leading-[1.08] sm:block">
-            <span
-              className={cn(
-                'block font-display text-[0.9375rem] font-semibold tracking-tight transition-colors duration-500',
-                onDark ? 'text-white' : 'text-navy-950',
-              )}
-            >
-              IK Strategic
-            </span>
-            <span
-              className={cn(
-                'block text-[0.6875rem] uppercase tracking-[0.2em] transition-colors duration-500',
-                onDark ? 'text-navy-300' : 'text-navy-500',
-              )}
-            >
-              Services LLP
+          <span
+            aria-hidden
+            className="grid grid-cols-[0fr] overflow-hidden transition-[grid-template-columns,opacity]
+                       duration-500 ease-out-expo opacity-0
+                       group-hover:grid-cols-[1fr] group-hover:opacity-100
+                       group-focus-visible:grid-cols-[1fr] group-focus-visible:opacity-100"
+          >
+            <span className="min-w-0 overflow-hidden whitespace-nowrap pl-3 leading-[1.08]">
+              <span
+                className={cn(
+                  'block font-display text-[0.9375rem] font-semibold tracking-tight transition-colors duration-500',
+                  onDark ? 'text-white' : 'text-navy-950',
+                )}
+              >
+                IK Strategic
+              </span>
+              <span
+                className={cn(
+                  'block text-[0.6875rem] uppercase tracking-[0.2em] transition-colors duration-500',
+                  onDark ? 'text-navy-300' : 'text-navy-500',
+                )}
+              >
+                Services LLP
+              </span>
             </span>
           </span>
         </Link>

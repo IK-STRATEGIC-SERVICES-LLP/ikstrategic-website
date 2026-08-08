@@ -68,7 +68,9 @@ module.exports = {
 
       /* Large, refined, fluid typography. */
       fontSize: {
-        'display-xl': ['clamp(2.75rem, 6.2vw, 5.25rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '600' }],
+        // Tuned so a three-line hero headline plus copy and CTAs clear the fold
+        // on a ~700px-tall viewport. Raising this pushes the CTAs under.
+        'display-xl': ['clamp(2.5rem, 5.5vw, 4.75rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '600' }],
         'display-lg': ['clamp(2.25rem, 4.6vw, 3.75rem)', { lineHeight: '1.03', letterSpacing: '-0.03em', fontWeight: '600' }],
         'display-md': ['clamp(1.75rem, 3.2vw, 2.5rem)', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '600' }],
         'display-sm': ['clamp(1.375rem, 2.2vw, 1.75rem)', { lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: '600' }],
