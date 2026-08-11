@@ -71,7 +71,7 @@ const SERVICES: Service[] = [
       'IT consulting, staff augmentation, and expert engineering talent — embedded in your teams, aligned to your roadmap, accountable to your outcomes.',
     bullets: [
       'Technology strategy, architecture reviews & roadmaps',
-      'Vetted senior engineers embedded in your squads',
+      'Vetted specialist engineers embedded in your squads',
       'Dedicated pods with full delivery accountability',
     ],
   },

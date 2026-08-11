@@ -7,6 +7,41 @@ import Link from 'next/link';
 import { LogoMark } from '@/components/ui/logo';
 import { RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { ORG } from '@/lib/site';
+import { isExternalHref } from '@/lib/utils';
+
+const LINKEDIN_URL = ORG.sameAs.find((url) => url.includes('linkedin.com/company/'));
+
+/**
+ * A column link. The Contact column holds a `mailto:`, and routing that
+ * through <Link> makes it dead — see isExternalHref.
+ */
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const className =
+    'group inline-flex items-center gap-1.5 text-sm text-navy-200 ' +
+    'transition-colors duration-300 hover:text-white';
+
+  const inner = (
+    <>
+      {children}
+      <ArrowUpRight
+        className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all
+                   duration-300 ease-out-expo group-hover:translate-x-0
+                   group-hover:opacity-100"
+        strokeWidth={2}
+      />
+    </>
+  );
+
+  return isExternalHref(href) ? (
+    <a href={href} className={className}>
+      {inner}
+    </a>
+  ) : (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
+  );
+}
 
 const COLUMNS = [
   {
@@ -22,7 +57,7 @@ const COLUMNS = [
   {
     heading: 'Company',
     links: [
-      { label: 'About IK Strategic', href: '/about' },
+      { label: 'About IK Strategic Services', href: '/about' },
       { label: 'How We Work', href: '/about#principles' },
       { label: 'Our Structure', href: '/about' },
       { label: 'Our Methodology', href: '/#methodology' },
@@ -40,8 +75,8 @@ const COLUMNS = [
   {
     heading: 'Contact',
     links: [
-      { label: 'Book a Consultation', href: '/contact' },
-      { label: ORG.email, href: `mailto:${ORG.email}` },
+      { label: 'Contact us', href: `mailto:${ORG.email}` },
+      { label: 'Send a message', href: '/contact' },
       { label: 'Partner Enquiries', href: '/contact' },
       { label: 'Support', href: '/contact' },
     ],
@@ -69,7 +104,10 @@ export function SiteFooter() {
         <RevealGroup className="grid gap-12 lg:grid-cols-12" stagger={0.07}>
           {/* Brand block */}
           <RevealItem className="lg:col-span-4">
-            <Link href="/" className="flex items-center gap-3" aria-label="IK Strategic Services home">
+            {/* The one place the registered entity is stated in full — a
+                company has to name itself somewhere, and the footer is where
+                readers look for it. Everywhere else uses the trading name. */}
+            <Link href="/" className="flex items-center gap-3" aria-label={`${ORG.name} — home`}>
               <LogoMark tone="dark" className="h-11 w-11 shrink-0" />
               <span className="leading-[1.08]">
                 <span className="block font-display text-base font-semibold text-white">
@@ -96,27 +134,38 @@ export function SiteFooter() {
                   {ORG.email}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 shrink-0 text-electric-400" strokeWidth={1.75} />
-                Pune, India — serving clients globally
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-electric-400" strokeWidth={1.75} />
+                <address className="not-italic leading-relaxed">
+                  {ORG.streetAddress}
+                  <span className="block">
+                    {ORG.addressLocality}, {ORG.addressRegion} {ORG.postalCode}, India
+                  </span>
+                </address>
               </li>
             </ul>
 
-            <div className="mt-7 flex items-center gap-3">
-              <motion.a
-                href="https://www.linkedin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="IK Strategic on LinkedIn"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/15
-                           text-navy-200 transition-colors duration-300
-                           hover:border-electric-400/60 hover:text-white"
-              >
-                <Linkedin className="h-4 w-4" strokeWidth={1.75} />
-              </motion.a>
-            </div>
+            {/* Driven by ORG.sameAs, so the icon appears only once a real
+                company page exists. It previously pointed at linkedin.com's
+                own homepage — a visitor clicking "IK Strategic on LinkedIn"
+                landed on a login wall, and crawlers saw the mismatch too. */}
+            {LINKEDIN_URL && (
+              <div className="mt-7 flex items-center gap-3">
+                <motion.a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${ORG.name} on LinkedIn`}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15
+                             text-navy-200 transition-colors duration-300
+                             hover:border-electric-400/60 hover:text-white"
+                >
+                  <Linkedin className="h-4 w-4" strokeWidth={1.75} />
+                </motion.a>
+              </div>
+            )}
           </RevealItem>
 
           {/* Link columns */}
@@ -127,19 +176,7 @@ export function SiteFooter() {
                 <ul className="mt-5 space-y-3">
                   {column.links.map((link) => (
                     <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="group inline-flex items-center gap-1.5 text-sm text-navy-200
-                                   transition-colors duration-300 hover:text-white"
-                      >
-                        {link.label}
-                        <ArrowUpRight
-                          className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all
-                                     duration-300 ease-out-expo group-hover:translate-x-0
-                                     group-hover:opacity-100"
-                          strokeWidth={2}
-                        />
-                      </Link>
+                      <FooterLink href={link.href}>{link.label}</FooterLink>
                     </li>
                   ))}
                 </ul>
@@ -151,7 +188,7 @@ export function SiteFooter() {
         {/* Legal bar */}
         <div className="mt-16 flex flex-col gap-5 border-t border-white/10 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-navy-400">
-            © {year} IK Strategic Services LLP. All rights reserved.
+            © {year} {ORG.legalName}. All rights reserved.
           </p>
           <ul className="flex flex-wrap items-center gap-x-7 gap-y-2">
             {LEGAL.map((item) => (

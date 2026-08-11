@@ -84,7 +84,7 @@ export async function POST(request: Request) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: process.env.CONTACT_FROM_EMAIL ?? 'IK Strategic <onboarding@resend.dev>',
+      from: process.env.CONTACT_FROM_EMAIL ?? `${ORG.shortName} <onboarding@resend.dev>`,
       to: [to],
       reply_to: email,
       subject: `Website enquiry — ${name}${company ? ` (${company})` : ''}`,

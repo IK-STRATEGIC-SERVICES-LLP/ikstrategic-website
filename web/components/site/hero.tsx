@@ -2,17 +2,34 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
-import { DigitalEcosystem } from '@/components/site/digital-ecosystem';
 import { ButtonLink } from '@/components/ui/button';
 import { fadeUpItem, heroContainer, lineReveal } from '@/lib/motion';
+
+/**
+ * The canvas is decorative and never part of the server HTML, so keeping it in
+ * the hero's own bundle only delayed the copy and CTAs — the things a visitor
+ * on a phone is actually waiting for. Split out, it downloads and mounts after
+ * the hero is interactive, behind a placeholder of identical height so nothing
+ * shifts when it arrives.
+ */
+const DigitalEcosystem = dynamic(
+  () => import('@/components/site/digital-ecosystem').then((m) => m.DigitalEcosystem),
+  {
+    ssr: false,
+    loading: () => (
+      <div aria-hidden className="h-[22rem] w-full sm:h-[26rem] lg:h-[31rem]" />
+    ),
+  },
+);
 
 const HEADLINE = ['Digital transformation,', 'engineered with', 'intelligence.'];
 
 const PROOF = [
   { value: '40%', label: 'Faster delivery cycles with AI-driven engineering' },
   { value: '24/7', label: 'Continuous automated testing across every build' },
-  { value: '100%', label: 'Senior engineers — no junior bench, no hand-offs' },
+  { value: '100%', label: 'Experienced engineers on every engagement, no hand-offs' },
 ];
 
 export function Hero() {
@@ -21,10 +38,14 @@ export function Hero() {
     // ~700px-tall viewport; the proof strip and trust rail scroll into view.
     <section className="on-dark relative isolate overflow-hidden bg-navy-950 pb-20 pt-28 sm:pb-24 sm:pt-32">
       {/* ---------- Atmosphere ---------- */}
+      {/* Two ~550px blurred discs. Animating them means the compositor
+          re-rasterises a huge blur every frame, which on a phone GPU costs
+          more than the canvas does — so they stay static below `sm` and the
+          blur radius drops. The glow reads the same; only the drift is lost. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-radial" />
-        <div className="absolute -left-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-electric-500/20 blur-[120px] animate-aurora" />
-        <div className="absolute -right-24 top-24 h-[30rem] w-[30rem] rounded-full bg-violetine-600/25 blur-[130px] animate-aurora-slow" />
+        <div className="absolute -left-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-electric-500/20 blur-[70px] sm:blur-[120px] sm:animate-aurora" />
+        <div className="absolute -right-24 top-24 h-[30rem] w-[30rem] rounded-full bg-violetine-600/25 blur-[70px] sm:blur-[130px] sm:animate-aurora-slow" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-navy-950 to-transparent" />
       </div>
 
@@ -63,9 +84,9 @@ export function Hero() {
                 variants={fadeUpItem}
                 className="mt-6 max-w-xl text-body-lg text-navy-200 text-pretty"
               >
-                IK Strategic Services LLP builds the systems that move enterprises forward — generative
-                AI and intelligent automation, high-performance web and mobile platforms, and the senior
-                engineering talent to run them. Strategy you can deploy, not slideware.
+                IK Strategic Services builds the systems that move enterprises forward — generative
+                AI and intelligent automation, high-performance web and mobile platforms, and the
+                expert engineering talent to run them. Strategy you can deploy, not slideware.
               </motion.p>
 
               <motion.div variants={fadeUpItem} className="mt-7 flex flex-wrap items-center gap-4">

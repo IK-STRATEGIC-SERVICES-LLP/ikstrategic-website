@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { arrowSlide, buttonTap, springSnappy } from '@/lib/motion';
-import { cn } from '@/lib/utils';
+import { cn, isExternalHref } from '@/lib/utils';
 
 /**
  * `primary` is the navy CTA for light sections. On navy surfaces it would be
@@ -57,6 +57,27 @@ export function ButtonLink({
   className,
   fullWidth = false,
 }: ButtonLinkProps) {
+  const classes = cn(base, sizes[size], variants[variant], fullWidth && 'w-full', className);
+
+  const inner = (
+    <>
+      {/* Cyan wash that sweeps in behind the label on hover. */}
+      {variant === 'primary' && (
+        <span
+          aria-hidden
+          className="absolute inset-0 -z-10 rounded-full bg-accent-sweep opacity-0
+                     transition-opacity duration-500 ease-out-expo group-hover:opacity-100"
+        />
+      )}
+      <span className="relative">{children}</span>
+      {icon && (
+        <motion.span variants={arrowSlide} className="relative flex">
+          {icon}
+        </motion.span>
+      )}
+    </>
+  );
+
   return (
     <motion.div
       className={fullWidth ? 'flex w-full' : 'inline-flex'}
@@ -66,25 +87,17 @@ export function ButtonLink({
       whileTap={buttonTap}
       transition={springSnappy}
     >
-      <Link
-        href={href}
-        className={cn(base, sizes[size], variants[variant], fullWidth && 'w-full', className)}
-      >
-        {/* Cyan wash that sweeps in behind the label on hover. */}
-        {variant === 'primary' && (
-          <span
-            aria-hidden
-            className="absolute inset-0 -z-10 rounded-full bg-accent-sweep opacity-0
-                       transition-opacity duration-500 ease-out-expo group-hover:opacity-100"
-          />
-        )}
-        <span className="relative">{children}</span>
-        {icon && (
-          <motion.span variants={arrowSlide} className="relative flex">
-            {icon}
-          </motion.span>
-        )}
-      </Link>
+      {/* mailto:, tel: and cross-origin links must be plain anchors — see
+          isExternalHref. Routing them through <Link> makes them dead. */}
+      {isExternalHref(href) ? (
+        <a href={href} className={classes}>
+          {inner}
+        </a>
+      ) : (
+        <Link href={href} className={classes}>
+          {inner}
+        </Link>
+      )}
     </motion.div>
   );
 }

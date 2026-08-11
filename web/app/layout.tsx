@@ -4,7 +4,7 @@ import { Inter, Sora } from 'next/font/google';
 import { StructuredData } from '@/components/seo/structured-data';
 import { SiteFooter } from '@/components/site/site-footer';
 import { SiteHeader } from '@/components/site/site-header';
-import { ORG, SITE_URL } from '@/lib/site';
+import { GOOGLE_SITE_VERIFICATION, ORG, SITE_URL } from '@/lib/site';
 
 import './globals.css';
 
@@ -51,12 +51,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     title: 'Digital transformation, engineered with intelligence.',
     description:
-      'AI and automation, web and mobile platforms, and senior engineering talent — delivered by an agile enterprise partner.',
+      'AI and automation, web and mobile platforms, and expert engineering talent — delivered by an agile enterprise partner.',
     // og:image comes from app/opengraph-image.tsx via the file convention.
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'IK Strategic Services LLP',
+    title: ORG.name,
     description: 'Digital transformation and intelligent automation for the enterprise.',
   },
   robots: {
@@ -70,6 +70,10 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
+  // Only emitted once the token is set — see GOOGLE_SITE_VERIFICATION.
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = {

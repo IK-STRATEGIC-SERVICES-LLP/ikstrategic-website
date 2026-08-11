@@ -9,7 +9,7 @@ import { ORG } from '@/lib/site';
 const STEPS = [
   { step: 'Step 01', title: 'Discovery call', body: 'Thirty minutes with an engineer, not a salesperson.' },
   { step: 'Step 02', title: 'Solution outline', body: 'Architecture, timeline, and cost — within a week.' },
-  { step: 'Step 03', title: 'Delivery starts', body: 'A senior pod in your tools, shipping from sprint one.' },
+  { step: 'Step 03', title: 'Delivery starts', body: 'A dedicated engineering pod in your tools, shipping from sprint one.' },
 ];
 
 export function ContactCta() {
@@ -44,20 +44,23 @@ export function ContactCta() {
 
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <ButtonLink
-                    href="/contact"
-                    variant="accent"
-                    size="lg"
-                    icon={<ArrowRight className="h-4 w-4" strokeWidth={2} />}
-                  >
-                    Book a consultation
-                  </ButtonLink>
-                  <ButtonLink
                     href={`mailto:${ORG.email}`}
-                    variant="onDark"
+                    variant="accent"
                     size="lg"
                     icon={<Mail className="h-4 w-4" strokeWidth={1.75} />}
                   >
-                    {ORG.email}
+                    Contact us
+                  </ButtonLink>
+                  {/* The form stays one click away: a mailto does nothing at
+                      all on a device with no mail client configured, so it
+                      cannot be the only route to reaching us. */}
+                  <ButtonLink
+                    href="/contact"
+                    variant="onDark"
+                    size="lg"
+                    icon={<ArrowRight className="h-4 w-4" strokeWidth={2} />}
+                  >
+                    Send a message
                   </ButtonLink>
                 </div>
               </div>

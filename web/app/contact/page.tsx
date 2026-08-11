@@ -33,7 +33,7 @@ const STEPS = [
   {
     step: 'Step 03',
     title: 'Delivery starts',
-    body: 'A senior pod in your tools and your repo, shipping from the first sprint.',
+    body: 'A dedicated engineering pod in your tools and your repo, shipping from the first sprint.',
   },
 ];
 
@@ -89,11 +89,17 @@ export default function ContactPage() {
                           <MapPin className="h-4 w-4" strokeWidth={1.75} />
                         </span>
                         <div>
-                          <p className="text-eyebrow uppercase text-navy-400">Based in</p>
-                          <p className="mt-1 text-sm text-navy-800">
-                            {ORG.addressLocality}, {ORG.addressRegion}, India
+                          <p className="text-eyebrow uppercase text-navy-400">Office</p>
+                          {/* Matches the PostalAddress in the JSON-LD exactly —
+                              Google cross-checks the two, and a mismatch is
+                              what stops a business profile from verifying. */}
+                          <address className="mt-1 text-sm not-italic leading-relaxed text-navy-800">
+                            {ORG.streetAddress}
+                            <span className="block">
+                              {ORG.addressLocality}, {ORG.addressRegion} {ORG.postalCode}, India
+                            </span>
                             <span className="block text-navy-500">Serving clients globally</span>
-                          </p>
+                          </address>
                         </div>
                       </li>
                       <li className="flex items-start gap-3.5">

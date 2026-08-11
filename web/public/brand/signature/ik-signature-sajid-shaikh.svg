@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="468" height="139" viewBox="0 0 468 139">
+  <defs>
+    <linearGradient id="sigGrad" x1="32" y1="48" x2="52" y2="15" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <rect width="468" height="139" fill="#FFFFFF"/>
+  
+    <g transform="translate(18 40.5) scale(0.9375)">
+      <rect x="11.5" y="14.75" width="7" height="36" rx="3.5" fill="#08122A"/>
+      <rect x="25.5" y="14.75" width="7" height="36" rx="3.5" fill="#08122A"/>
+      <path d="M32.5 32.75L50 16.25" stroke="url(#sigGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M32.5 32.75L48 47.75" stroke="url(#sigGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
+    </g>
+  <line x1="98" y1="22" x2="98" y2="119" stroke="#E6EBF2" stroke-width="1"/>
+  <text x="118" y="33" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#08122A">Sajid Shaikh</text>
+  <text x="118" y="53" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="600" letter-spacing="1.6" fill="#28437B">IK STRATEGIC SERVICES LLP</text>
+  <text x="118" y="74" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0E7490">contactikstrategic@gmail.com</text>
+  <text x="118" y="91" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" fill="#28437B">www.ikstrategic.com</text>
+  <text x="118" y="108" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="10.5" fill="#416BB4">Flat No. 201, Leena Manik Apartment, near Shantai Hotel</text>
+  <text x="118" y="121" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="10.5" fill="#416BB4">Rasta Peth, Pune, Maharashtra 411011, India</text>
+</svg>

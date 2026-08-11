@@ -29,11 +29,16 @@ export function StructuredData() {
         image: `${SITE_URL}/opengraph-image`,
         address: {
           '@type': 'PostalAddress',
+          streetAddress: ORG.streetAddress,
           addressLocality: ORG.addressLocality,
           addressRegion: ORG.addressRegion,
+          postalCode: ORG.postalCode,
           addressCountry: ORG.addressCountry,
         },
-        sameAs: ORG.sameAs,
+        // Omitted entirely when there are no confirmed profiles — an empty
+        // array is a claim that none exist.
+        ...(ORG.sameAs.length > 0 ? { sameAs: ORG.sameAs } : {}),
+        areaServed: 'Worldwide',
         knowsAbout: [
           'Digital transformation',
           'Intelligent automation',

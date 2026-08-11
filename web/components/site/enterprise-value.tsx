@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Building2, Gauge, Handshake, Layers, TrendingUp } from 'lucide-react';
+import { ArrowRight, Gauge, Handshake, Layers, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 
 import { ButtonLink } from '@/components/ui/button';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { cardHover, EASE_OUT_EXPO, iconNudge } from '@/lib/motion';
+import { cardHover, iconNudge } from '@/lib/motion';
 
 const PILLARS = [
   {
@@ -18,7 +18,7 @@ const PILLARS = [
   {
     icon: Gauge,
     title: 'Agile by structure, not slogan',
-    body: 'As an LLP we stay lean and decide fast — no layers of account management between you and the engineers actually building your platform.',
+    body: 'We stay lean and decide fast — no layers of account management between you and the engineers actually building your platform.',
   },
   {
     icon: TrendingUp,
@@ -42,7 +42,7 @@ export function EnterpriseValue() {
             <div className="relative overflow-hidden rounded-4xl shadow-card-hover">
               <Image
                 src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80"
-                alt="The IK Strategic delivery floor during a planning session"
+                alt="The IK Strategic Services delivery floor during a planning session"
                 width={1200}
                 height={1000}
                 sizes="(min-width: 1024px) 42vw, 100vw"
@@ -53,29 +53,14 @@ export function EnterpriseValue() {
                 className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent"
               />
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.85, ease: EASE_OUT_EXPO, delay: 0.2 }}
-              className="absolute -bottom-6 -right-2 w-60 rounded-3xl border border-canvas-line
-                         bg-white p-6 shadow-card-hover sm:-right-8"
-            >
-              <Building2 className="h-5 w-5 text-electric-600" strokeWidth={1.75} />
-              <p className="mt-3 font-display text-2xl font-semibold text-navy-950">LLP → Pvt Ltd</p>
-              <p className="mt-1.5 text-xs leading-relaxed text-navy-500">
-                Expanding our structure to match the scale of the engagements we now run.
-              </p>
-            </motion.div>
           </Reveal>
 
           {/* ---------- Copy ---------- */}
           <div className="lg:col-span-7">
             <SectionHeading
-              eyebrow="Why IK Strategic"
+              eyebrow="Why IK Strategic Services"
               title="Enterprise scale. Agile at the core."
-              description="IK Strategic Services LLP was built to give enterprises something they rarely get at once: the rigour and accountability of a large integrator, delivered at the speed of a focused, senior team. We are committed to scalable IT solutions for the long term — and we are growing the structure to match, moving from LLP toward private limited incorporation as our enterprise commitments deepen."
+              description="IK Strategic Services was built to give enterprises something they rarely get at once: the rigour and accountability of a large integrator, delivered at the speed of a focused, expert team. We are committed to scalable IT solutions for the long term — and we are growing the structure to match as our enterprise commitments deepen."
             />
 
             <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2" stagger={0.08}>
@@ -127,9 +112,9 @@ export function EnterpriseValue() {
                 Engineers who would rather build the method than follow one.
               </h2>
               <p className="mt-4 max-w-2xl text-body-lg text-navy-600 text-pretty">
-                We hire senior, we stay small per team, and we give people direct ownership of
-                systems that matter. If you want to work where AI is part of the toolchain rather
-                than a talking point, we should talk.
+                We hire experienced practitioners, we keep teams small, and we give people direct
+                ownership of systems that matter. If you want to work where AI is part of the
+                toolchain rather than a talking point, we should talk.
               </p>
             </div>
             <div className="flex lg:col-span-4 lg:justify-end">

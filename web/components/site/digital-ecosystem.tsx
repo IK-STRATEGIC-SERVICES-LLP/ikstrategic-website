@@ -108,10 +108,59 @@ export function DigitalEcosystem({ className }: { className?: string }) {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* ---------------- performance profile ----------------
+       Every cost in this scene is per-node and per-frame, so a phone paying
+       desktop prices spends the whole hero-load budget compositing glow
+       sprites. `lowPower` is a coarse but reliable proxy: touch devices and
+       narrow viewports get a smaller lattice, fewer resolved node-spheres,
+       a lower backing-store resolution and half the frame rate. The sequence
+       is identical — it is the same animation, rendered cheaper.
+
+       Sampled once at mount and never re-evaluated: a profile that flipped on
+       resize would rebuild the scene mid-sequence. The core-count threshold is
+       deliberately low — plenty of capable laptops report 4, so only genuinely
+       constrained hardware is caught by it. */
+    const lowPower =
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.innerWidth < 768 ||
+      (navigator.hardwareConcurrency ?? 8) <= 2;
+
+    const PERF = lowPower
+      ? {
+          maxDpr: 1.5,
+          nodes: { min: 70, max: 110, areaPer: 3400 },
+          /** k-nearest neighbours per vertex — drives the link count. */
+          K: 4,
+          /** Projected radius (px) below which a node stays a cheap glow. */
+          resolveAt: 13,
+          /** Hard cap on node-spheres per frame — the dominant cost. */
+          sphereBudget: 6,
+          /** Orbit rings inside a resolved node-sphere, and dots per ring. */
+          rings: 2,
+          ringDots: (ring: number) => 5 + ring * 3,
+          orbitSteps: 40,
+          frameInterval: 1000 / 30,
+        }
+      : {
+          maxDpr: 2,
+          nodes: { min: 110, max: 230, areaPer: 2100 },
+          K: 6,
+          resolveAt: 9,
+          sphereBudget: 18,
+          rings: 3,
+          ringDots: (ring: number) => 8 + ring * 6,
+          orbitSteps: 72,
+          frameInterval: 0,
+        };
+
     let width = 0;
     let height = 0;
     let raf = 0;
     let visible = true;
+    /** False until the deferred start fires, so the IntersectionObserver's
+     *  initial callback cannot pull the loop forward past it. */
+    let started = false;
+    let startHandle = 0;
     const startedAt = performance.now();
 
     const rand = (a: number, b: number) => a + Math.random() * (b - a);
@@ -162,9 +211,9 @@ export function DigitalEcosystem({ className }: { className?: string }) {
       glow(x, y, R * 2.0, CYAN, 0.3 * alpha, 0.85);
 
       const spin = t * 0.5 + seed;
-      for (let ring = 1; ring <= 3; ring++) {
+      for (let ring = 1; ring <= PERF.rings; ring++) {
         const rr = R * (0.42 + ring * 0.19);
-        const dots = 8 + ring * 6;
+        const dots = PERF.ringDots(ring);
         const squash = 0.28 + 0.26 * Math.abs(Math.sin(t * 0.4 + seed + ring));
         for (let i = 0; i < dots; i++) {
           const ang = (i / dots) * Math.PI * 2 + spin * (ring % 2 ? 1 : -1);
@@ -207,7 +256,8 @@ export function DigitalEcosystem({ className }: { className?: string }) {
 
       // Fewer, larger triangles read far better than a fine mesh — the bonds
       // are the point, and at high density they collapse into a haze.
-      const count = Math.round(Math.min(230, Math.max(110, area / 2100)));
+      const { min, max, areaPer } = PERF.nodes;
+      const count = Math.round(Math.min(max, Math.max(min, area / areaPer)));
       lattice = fibonacciSphere(count, LATTICE_R);
 
       // Connect each vertex to its k nearest neighbours — this is what makes
@@ -217,21 +267,43 @@ export function DigitalEcosystem({ className }: { className?: string }) {
       // abnormally close pairs near the poles, and any threshold derived from
       // the global minimum spacing collapses to near-zero and yields no mesh.
       // k-nearest is scale-free and guarantees uniform connectivity.
-      const K = 6;
-      const seen = new Set<string>();
+      //
+      // Selected by insertion into a fixed k-slot buffer rather than
+      // map/filter/sort: this runs on every resize, and the sorting version
+      // allocated n² objects to keep 4–6 of them.
+      const K = PERF.K;
+      const bestJ = new Int32Array(K);
+      const bestD = new Float64Array(K);
+      const seen = new Set<number>();
       links = [];
       for (let i = 0; i < lattice.length; i++) {
         const a = lattice[i];
-        const near = lattice
-          .map((b, j) => ({ j, d: Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) }))
-          .filter((o) => o.j !== i)
-          .sort((p, q) => p.d - q.d)
-          .slice(0, K);
-        for (const n of near) {
-          const key = i < n.j ? `${i}-${n.j}` : `${n.j}-${i}`;
+        bestD.fill(Infinity);
+        bestJ.fill(-1);
+        for (let j = 0; j < lattice.length; j++) {
+          if (j === i) continue;
+          const b = lattice[j];
+          const dx = a.x - b.x, dy = a.y - b.y, dz = a.z - b.z;
+          const d = dx * dx + dy * dy + dz * dz; // squared — ordering is the same
+          if (d >= bestD[K - 1]) continue;
+          let s = K - 1;
+          while (s > 0 && bestD[s - 1] > d) {
+            bestD[s] = bestD[s - 1];
+            bestJ[s] = bestJ[s - 1];
+            s--;
+          }
+          bestD[s] = d;
+          bestJ[s] = j;
+        }
+        for (let s = 0; s < K; s++) {
+          const j = bestJ[s];
+          if (j < 0) continue;
+          const lo = i < j ? i : j;
+          const hi = i < j ? j : i;
+          const key = lo * lattice.length + hi;
           if (seen.has(key)) continue;
           seen.add(key);
-          links.push(i < n.j ? [i, n.j] : [n.j, i]);
+          links.push([lo, hi]);
         }
       }
 
@@ -259,7 +331,9 @@ export function DigitalEcosystem({ className }: { className?: string }) {
 
     function resize() {
       const rect = host.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Every extra device pixel is paid for by thousands of additively
+      // blended sprites per frame, so phones render below their native DPR.
+      const dpr = Math.min(window.devicePixelRatio || 1, PERF.maxDpr);
       width = Math.max(1, Math.round(rect.width));
       height = Math.max(1, Math.round(rect.height));
       canvas.width = Math.round(width * dpr);
@@ -271,6 +345,17 @@ export function DigitalEcosystem({ className }: { className?: string }) {
     }
 
     /* ---------------- render ---------------- */
+
+    /** Bond alphas are quantised to this many levels so the whole mesh is
+     *  drawn in a handful of stroke calls. Buffers live outside `draw` so a
+     *  60fps loop is not allocating them every frame. */
+    const DEPTH_BUCKETS = 8;
+    const bucketPaths: (Path2D | null)[] = new Array(DEPTH_BUCKETS).fill(null);
+
+    /** Candidate node-spheres for the current frame: index + projected size,
+     *  kept flat and reused so the budget pass allocates nothing. */
+    const candIdx: number[] = [];
+    const candSize: number[] = [];
 
     /** Orientation of the lattice at a given time — also used to pick the
      *  zoom target ahead of time, so the choice is stable across the move. */
@@ -333,16 +418,28 @@ export function DigitalEcosystem({ className }: { className?: string }) {
 
         // Bonds carry the structure, so they are drawn as strongly as the
         // vertices — a faint mesh reads as scattered dots, not a lattice.
+        //
+        // Depth alpha is quantised into a few buckets and each bucket is
+        // stroked as one path. Per-link strokeStyle changes meant several
+        // hundred draw calls a frame for a gradient the eye cannot resolve
+        // that finely anyway.
         ctx.lineWidth = 1.15;
+        for (let b = 0; b < DEPTH_BUCKETS; b++) bucketPaths[b] = null;
         for (const [i, j] of links) {
           const a = pts[i], b = pts[j];
           const depth = (a.d + b.d) / 2;
-          const near = depth * depth * depth;
-          ctx.strokeStyle = rgba(AZURE, 0.72 * near * fade);
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+          const alpha = 0.72 * depth * depth * depth * fade;
+          if (alpha <= 0.01) continue;
+          const bucket = Math.min(DEPTH_BUCKETS - 1, Math.floor(alpha * DEPTH_BUCKETS));
+          const path = (bucketPaths[bucket] ??= new Path2D());
+          path.moveTo(a.x, a.y);
+          path.lineTo(b.x, b.y);
+        }
+        for (let b = 0; b < DEPTH_BUCKETS; b++) {
+          const path = bucketPaths[b];
+          if (!path) continue;
+          ctx.strokeStyle = rgba(AZURE, (b + 0.5) / DEPTH_BUCKETS);
+          ctx.stroke(path);
         }
 
         // Node sizes track `unit`, not fixed pixels, so the sphere keeps its
@@ -361,23 +458,61 @@ export function DigitalEcosystem({ className }: { className?: string }) {
         // the very stage this transition exists to show.
         const nodeFade = (1 - focus) ** 0.55;
 
+        // A resolved node-sphere costs ~60 sprite composites; a plain node
+        // costs three. Mid-zoom every vertex crosses the resolve threshold at
+        // once, so an unbudgeted pass asks the GPU for thousands of composites
+        // in a single frame — the stall this whole profile exists to avoid.
+        // Resolve only the largest few (the ones the eye is actually on) and
+        // draw the rest as glows.
+        candIdx.length = 0;
+        candSize.length = 0;
+
         for (let i = 0; i < pts.length; i++) {
           const q = pts[i];
           const d3 = q.d * q.d * q.d;
           const isTarget = i === targetIdx;
           // The target outgrows its neighbours so the move lands on one node.
           const k = (isTarget ? 2.2 : 1) * grow;
-          const flick = 0.82 + 0.18 * Math.sin(t * 2.1 + i * 0.6);
           const sphereR = shell * k * q.d;
 
-          if (sphereR > 8) {
-            // Close enough to resolve internal structure.
-            drawNodeSphere(q.x, q.y, sphereR * 2, Math.min(1, d3) * nodeFade, i * 1.7, t);
-          } else {
-            // The target vertex runs hot to telegraph the push-in.
-            glow(q.x, q.y, halo * k * q.d, CYAN, (isTarget ? 0.6 : 0.38) * d3 * nodeFade, 0.7);
-            glow(q.x, q.y, sphereR, CYAN, (isTarget ? 0.9 : 0.62) * d3 * nodeFade, 0.25);
-            glow(q.x, q.y, core * k * q.d, WHITE, d3 * flick * nodeFade, 0.05);
+          if (sphereR > PERF.resolveAt && Math.min(1, d3) * nodeFade > 0.02) {
+            candIdx.push(i);
+            candSize.push(sphereR);
+            continue;
+          }
+
+          const flick = 0.82 + 0.18 * Math.sin(t * 2.1 + i * 0.6);
+          // The target vertex runs hot to telegraph the push-in.
+          glow(q.x, q.y, halo * k * q.d, CYAN, (isTarget ? 0.6 : 0.38) * d3 * nodeFade, 0.7);
+          glow(q.x, q.y, sphereR, CYAN, (isTarget ? 0.9 : 0.62) * d3 * nodeFade, 0.25);
+          glow(q.x, q.y, core * k * q.d, WHITE, d3 * flick * nodeFade, 0.05);
+        }
+
+        if (candIdx.length > 0) {
+          // Biggest first, so the budget is spent on the nodes nearest camera.
+          const order = candIdx
+            .map((_, n) => n)
+            .sort((m, n) => candSize[n] - candSize[m])
+            .slice(0, PERF.sphereBudget);
+
+          for (const n of order) {
+            const i = candIdx[n];
+            const q = pts[i];
+            const d3 = q.d * q.d * q.d;
+            drawNodeSphere(q.x, q.y, candSize[n] * 2, Math.min(1, d3) * nodeFade, i * 1.7, t);
+          }
+
+          // Everything over budget still has to be somewhere — a plain glow at
+          // the resolved size keeps the lattice intact instead of punching
+          // holes in it as nodes cross the threshold.
+          const overflow = new Set(order);
+          for (let n = 0; n < candIdx.length; n++) {
+            if (overflow.has(n)) continue;
+            const q = pts[candIdx[n]];
+            const d3 = Math.min(1, q.d * q.d * q.d);
+            glow(q.x, q.y, candSize[n] * 1.6, CYAN, 0.34 * d3 * nodeFade, 0.8);
+            glow(q.x, q.y, candSize[n] * 0.62, CYAN, 0.7 * d3 * nodeFade, 0.25);
+            glow(q.x, q.y, candSize[n] * 0.2, WHITE, d3 * nodeFade, 0.05);
           }
         }
       }
@@ -407,7 +542,7 @@ export function DigitalEcosystem({ className }: { className?: string }) {
           ctx.strokeStyle = rgba(isAccent ? GOLD : AZURE, (isAccent ? 0.34 : 0.26) * a);
           ctx.lineWidth = 1;
           ctx.beginPath();
-          const STEPS = 72;
+          const STEPS = PERF.orbitSteps;
           for (let i = 0; i <= STEPS; i++) {
             const q = perspective(rotY(ringPt((i / STEPS) * Math.PI * 2), spinY), atomScale);
             i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
@@ -454,9 +589,22 @@ export function DigitalEcosystem({ className }: { className?: string }) {
 
     const now = () => (performance.now() - startedAt) / 1000;
 
-    function loop() {
+    let lastFrame = 0;
+
+    function loop(ts: number) {
+      if (reduce || !visible) {
+        raf = 0;
+        return;
+      }
+      // Re-arm first so a slow frame does not break the chain.
+      raf = requestAnimationFrame(loop);
+      // Phones run at half rate. The sequence is timed off the clock, not the
+      // frame count, so it plays at exactly the same speed — there is just
+      // half as much of it, which is invisible on a decorative panel and
+      // halves the work competing with scrolling and hydration.
+      if (ts - lastFrame < PERF.frameInterval) return;
+      lastFrame = ts;
       draw(now());
-      raf = !reduce && visible ? requestAnimationFrame(loop) : 0;
     }
 
     /* ---------------- lifecycle ---------------- */
@@ -471,7 +619,7 @@ export function DigitalEcosystem({ className }: { className?: string }) {
     const io = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
-        if (visible && !reduce && !raf) raf = requestAnimationFrame(loop);
+        if (visible && started && !reduce && !raf) raf = requestAnimationFrame(loop);
         else if (!visible && raf) {
           cancelAnimationFrame(raf);
           raf = 0;
@@ -486,11 +634,28 @@ export function DigitalEcosystem({ className }: { className?: string }) {
     // tick can be a frame away and the canvas must never be blank. Reduced
     // motion rests on the lattice, the opening shot.
     draw(0);
-    if (!reduce) raf = requestAnimationFrame(loop);
+
+    // Hold the loop back until the main thread has finished the work the user
+    // is actually waiting on — hydration, fonts, the header. A decorative
+    // panel competing with hydration is what made the hero feel slow to load
+    // on a phone; one static frame covers the gap.
+    const useIdle = typeof window.requestIdleCallback === 'function';
+    const start = () => {
+      startHandle = 0;
+      started = true;
+      if (!reduce && visible && !raf) raf = requestAnimationFrame(loop);
+    };
+    startHandle = useIdle
+      ? window.requestIdleCallback(start, { timeout: 1200 })
+      : window.setTimeout(start, lowPower ? 600 : 200);
 
     return () => {
       ro.disconnect();
       io.disconnect();
+      if (startHandle) {
+        if (useIdle) window.cancelIdleCallback(startHandle);
+        else clearTimeout(startHandle);
+      }
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);

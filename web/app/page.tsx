@@ -7,9 +7,13 @@ import { Methodology } from '@/components/site/methodology';
 import { Services } from '@/components/site/services';
 
 export const metadata: Metadata = {
-  title: 'Digital Transformation & Intelligent Automation',
+  // Written out in full, suffix included. The root layout's `title.template`
+  // applies to child segments only, and this page shares the root segment —
+  // so a bare title here produced a homepage <title> with no company name in
+  // it at all, on the one page that most needs to rank for the firm's name.
+  title: 'IK Strategic Services LLP — Digital Transformation & Intelligent Automation',
   description:
-    'IK Strategic Services LLP delivers AI and automation, web and mobile engineering, and senior consulting talent — built on an AI-native delivery method that ships faster than traditional firms.',
+    'IK Strategic Services LLP delivers AI and automation, web and mobile engineering, and expert consulting talent — built on an AI-native delivery method that ships faster than traditional firms.',
   alternates: { canonical: '/' },
 };
 

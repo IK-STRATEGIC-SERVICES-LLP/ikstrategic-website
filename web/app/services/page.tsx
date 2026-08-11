@@ -12,7 +12,7 @@ import { SectionHeading } from '@/components/ui/section-heading';
 export const metadata: Metadata = {
   title: 'Services — AI, Web, Mobile & IT Consulting',
   description:
-    'AI and automation, Next.js and Angular web platforms, cross-platform and native mobile apps, and senior engineering talent — delivered by IK Strategic Services LLP.',
+    'AI and automation, Next.js and Angular web platforms, cross-platform and native mobile apps, and expert engineering talent — delivered by IK Strategic Services LLP.',
   alternates: { canonical: '/services' },
   openGraph: {
     url: '/services',
@@ -98,12 +98,12 @@ const CAPABILITIES: Capability[] = [
     icon: Users,
     eyebrow: 'Embedded expertise',
     title: 'Strategic Consulting & Resourcing',
-    lede: 'Senior engineers inside your teams, accountable to your outcomes.',
+    lede: 'Experienced engineers inside your teams, accountable to your outcomes.',
     body: 'Sometimes the gap is a decision — which architecture, which platform, whether to build or buy. Sometimes it is simply capacity. We do both: short, sharp consulting engagements that end in a decision you can act on, and embedded engineers who join your standups, your repo and your on-call rotation. No junior bench, no rotating faces, no layer of account management between you and the people writing the code.',
     deliverables: [
       'Technology strategy, architecture review and roadmaps',
       'Build-versus-buy and platform selection assessments',
-      'Vetted senior engineers embedded in your existing squads',
+      'Vetted specialist engineers embedded in your existing squads',
       'Dedicated delivery pods with end-to-end accountability',
       'Knowledge transfer so capability stays with your team',
     ],
@@ -127,7 +127,7 @@ const ENGAGEMENTS = [
   },
   {
     name: 'Staff augmentation',
-    body: 'Senior engineers embedded directly in your existing squads, working in your tools and your process.',
+    body: 'Experienced engineers embedded directly in your existing squads, working in your tools and your process.',
     best: 'Best when you have the plan and need capacity',
   },
   {

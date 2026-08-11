@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "brand:png": "node scripts/generate-brand-png.mjs"
+    "brand:png": "node scripts/generate-brand-png.mjs",
+    "brand:signature": "node scripts/generate-email-signature.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

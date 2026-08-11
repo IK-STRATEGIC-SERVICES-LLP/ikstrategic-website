@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { ButtonLink } from '@/components/ui/button';
 import { LogoMark } from '@/components/ui/logo';
 import { EASE_OUT_EXPO, springSoft } from '@/lib/motion';
+import { ORG } from '@/lib/site';
 import { cn } from '@/lib/utils';
 
 // Real routes, not bare hashes — a bare "#services" resolves against whatever
@@ -47,11 +48,7 @@ export function SiteHeader() {
           The name is always in the DOM for screen readers and SEO — the reveal
           is purely visual (width + opacity), never conditional rendering.
         */}
-        <Link
-          href="/"
-          className="group flex items-center"
-          aria-label="IK Strategic Services LLP — home"
-        >
+        <Link href="/" className="group flex items-center" aria-label={`${ORG.name} — home`}>
           <LogoMark
             tone={onDark ? 'dark' : 'light'}
             className="h-9 w-9 shrink-0 transition-transform duration-500 ease-out-expo group-hover:scale-[1.06]"
@@ -111,11 +108,11 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:block">
             <ButtonLink
-              href="/contact"
+              href={`mailto:${ORG.email}`}
               variant={onDark ? 'onDark' : 'primary'}
               icon={<ArrowUpRight className="h-4 w-4" strokeWidth={2} />}
             >
-              Book a consultation
+              Contact us
             </ButtonLink>
           </div>
 
@@ -168,12 +165,12 @@ export function SiteHeader() {
               ))}
               <div className="mt-3 px-1">
                 <ButtonLink
-                  href="/contact"
+                  href={`mailto:${ORG.email}`}
                   size="lg"
                   fullWidth
                   icon={<ArrowUpRight className="h-4 w-4" />}
                 >
-                  Book a consultation
+                  Contact us
                 </ButtonLink>
               </div>
             </div>

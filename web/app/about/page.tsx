@@ -8,17 +8,18 @@ import { PageHero } from '@/components/site/page-hero';
 import { ButtonLink } from '@/components/ui/button';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { ORG } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About — Enterprise scale, agile at the core',
   description:
-    'IK Strategic Services LLP is an AI-native engineering partner based in Pune, India, serving clients globally — and scaling from LLP toward private limited incorporation.',
+    'IK Strategic Services LLP is an AI-native engineering partner based in Pune, India, serving clients globally across regulated and high-growth sectors.',
   alternates: { canonical: '/about' },
   openGraph: {
     url: '/about',
     title: 'About IK Strategic Services LLP',
     description:
-      'An AI-native engineering partner combining the rigour of a large integrator with the speed of a focused senior team.',
+      'An AI-native engineering partner combining the rigour of a large integrator with the speed of a focused expert team.',
   },
 };
 
@@ -30,8 +31,8 @@ const PRINCIPLES = [
   },
   {
     icon: Gauge,
-    title: 'Seniority over headcount',
-    body: 'No junior bench, no rotating faces, no layer of account management between you and the engineers building your platform. Small teams of experienced people move faster than large ones.',
+    title: 'Expertise over headcount',
+    body: 'No rotating faces and no layer of account management between you and the engineers building your platform. Small teams of experienced people move faster than large ones.',
   },
   {
     icon: Compass,
@@ -48,7 +49,7 @@ const PRINCIPLES = [
 const NUMBERS = [
   { value: '40%', label: 'Faster delivery cycles using AI-driven engineering' },
   { value: '24/7', label: 'Automated adversarial testing on every build' },
-  { value: '100%', label: 'Senior engineers on client-facing delivery' },
+  { value: '100%', label: 'Experienced engineers on client-facing delivery' },
   { value: 'Global', label: 'Clients served from our Pune engineering base' },
 ];
 
@@ -58,7 +59,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About us"
         title="Enterprise scale. Agile at the core."
-        description="IK Strategic Services LLP exists to give enterprises something they rarely get at once: the rigour and accountability of a large integrator, delivered at the speed of a focused, senior team."
+        description="IK Strategic Services exists to give enterprises something they rarely get at once: the rigour and accountability of a large integrator, delivered at the speed of a focused, expert team."
       >
         <ButtonLink
           href="/contact"
@@ -80,7 +81,7 @@ export default function AboutPage() {
               <div className="relative overflow-hidden rounded-4xl shadow-card-hover">
                 <Image
                   src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80"
-                  alt="The IK Strategic engineering floor during a planning session"
+                  alt="The IK Strategic Services engineering floor during a planning session"
                   width={1200}
                   height={1000}
                   sizes="(min-width: 1024px) 42vw, 100vw"
@@ -102,8 +103,8 @@ export default function AboutPage() {
               <RevealGroup className="mt-8 space-y-5" stagger={0.08}>
                 <RevealItem>
                   <p className="text-body-lg text-navy-600 text-pretty">
-                    We built IK Strategic to refuse that trade. Senior engineers only, working in
-                    small accountable teams, with AI embedded in the toolchain rather than bolted on
+                    We built IK Strategic Services to refuse that trade. Experienced engineers only,
+                    working in small accountable teams, with AI embedded in the toolchain rather than bolted on
                     as a talking point — so the work that used to consume sprints takes days, and the
                     time saved goes into the parts that genuinely need human judgement.
                   </p>
@@ -210,8 +211,10 @@ export default function AboutPage() {
                 <dl className="mt-8 space-y-5 border-t border-canvas-line pt-7">
                   <div>
                     <dt className="text-eyebrow uppercase text-navy-400">Registered</dt>
+                    {/* Legal name, because the label is literally "Registered".
+                        A trading name under this heading would be inaccurate. */}
                     <dd className="mt-1.5 text-sm text-navy-800">
-                      IK Strategic Services LLP — Pune, Maharashtra, India
+                      {ORG.legalName} — {ORG.addressLocality}, {ORG.addressRegion}, India
                     </dd>
                   </div>
                   <div>
