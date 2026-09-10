@@ -1,9 +1,10 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 
-import { fadeUpBlock, fadeUpItem, staggerContainer, viewportOnce } from '@/lib/motion';
+import { fadeUpBlock, fadeUpItem, staggerContainer } from '@/lib/motion';
+import { useReveal } from '@/lib/use-reveal';
 
 /**
  * Static tag map. Never call `motion(Component)` during render — it returns a
@@ -41,14 +42,15 @@ export function Reveal({
   as = 'div',
 }: RevealProps) {
   const Tag = TAGS[as];
+  const { ref, inView } = useReveal<HTMLElement>();
 
   return (
     <Tag
+      ref={ref as Ref<never>}
       className={className}
       variants={variant === 'block' ? fadeUpBlock : fadeUpItem}
       initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
+      animate={inView ? 'show' : 'hidden'}
       transition={{ delay }}
     >
       {children}
@@ -78,14 +80,15 @@ export function RevealGroup({
   variants,
 }: RevealGroupProps) {
   const Tag = TAGS[as];
+  const { ref, inView } = useReveal<HTMLElement>();
 
   return (
     <Tag
+      ref={ref as Ref<never>}
       className={className}
       variants={variants ?? staggerContainer(stagger, delayChildren)}
       initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
+      animate={inView ? 'show' : 'hidden'}
     >
       {children}
     </Tag>

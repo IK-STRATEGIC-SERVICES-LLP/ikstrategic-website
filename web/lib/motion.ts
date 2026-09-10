@@ -147,5 +147,9 @@ export const pageTransition: Variants = {
 /* Viewport defaults                                                   */
 /* ------------------------------------------------------------------ */
 
-/** Fire once, slightly before the element is fully on screen. */
-export const viewportOnce = { once: true, amount: 0.25, margin: '0px 0px -12% 0px' } as const;
+/**
+ * Scroll-reveal in-view detection lives in `@/lib/use-reveal` (`useReveal`),
+ * not framer-motion's `whileInView` — the latter misses its initial callback
+ * for elements already on screen at first paint, leaving sections stuck at
+ * `opacity: 0` until the user scrolls.
+ */

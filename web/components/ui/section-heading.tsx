@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 
-import { drawLine, fadeUpItem, staggerContainer, viewportOnce } from '@/lib/motion';
+import { drawLine, fadeUpItem, staggerContainer } from '@/lib/motion';
+import { useReveal } from '@/lib/use-reveal';
 import { cn } from '@/lib/utils';
 
 type SectionHeadingProps = {
@@ -24,13 +25,14 @@ export function SectionHeading({
   className,
 }: SectionHeadingProps) {
   const dark = tone === 'dark';
+  const { ref, inView } = useReveal<HTMLDivElement>();
 
   return (
     <motion.div
+      ref={ref}
       variants={staggerContainer(0.09)}
       initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
+      animate={inView ? 'show' : 'hidden'}
       className={cn(
         'flex max-w-3xl flex-col gap-5',
         align === 'center' && 'mx-auto items-center text-center',
