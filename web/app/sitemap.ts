@@ -23,7 +23,11 @@ const ROUTES = [
   { path: '/', priority: 1, changeFrequency: 'weekly', lastModified: '2026-08-11' },
   { path: '/services', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-08-11' },
   { path: '/about', priority: 0.8, changeFrequency: 'monthly', lastModified: '2026-08-11' },
-  { path: '/contact', priority: 0.7, changeFrequency: 'monthly', lastModified: '2026-08-11' },
+  { path: '/contact', priority: 0.7, changeFrequency: 'monthly', lastModified: '2026-09-09' },
+  { path: '/privacy', priority: 0.3, changeFrequency: 'yearly', lastModified: '2026-09-09' },
+  { path: '/terms', priority: 0.3, changeFrequency: 'yearly', lastModified: '2026-09-09' },
+  { path: '/cookies', priority: 0.3, changeFrequency: 'yearly', lastModified: '2026-09-09' },
+  { path: '/security', priority: 0.3, changeFrequency: 'yearly', lastModified: '2026-09-09' },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

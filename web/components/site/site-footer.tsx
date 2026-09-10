@@ -75,10 +75,10 @@ const COLUMNS = [
   {
     heading: 'Contact',
     links: [
-      { label: 'Contact us', href: `mailto:${ORG.email}` },
-      { label: 'Send a message', href: '/contact' },
-      { label: 'Partner Enquiries', href: '/contact' },
-      { label: 'Support', href: '/contact' },
+      { label: 'Email us', href: `mailto:${ORG.email}` },
+      { label: 'Contact page', href: '/contact' },
+      { label: 'Partner enquiries', href: '/contact' },
+      { label: 'Report a security issue', href: '/security' },
     ],
   },
 ];
@@ -86,7 +86,7 @@ const COLUMNS = [
 const LEGAL = [
   { label: 'Privacy Policy', href: '/privacy' },
   { label: 'Terms of Service', href: '/terms' },
-  { label: 'Cookie Preferences', href: '/cookies' },
+  { label: 'Cookies', href: '/cookies' },
   { label: 'Security', href: '/security' },
 ];
 

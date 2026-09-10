@@ -2,10 +2,38 @@ import type { Metadata } from 'next';
 import { CalendarCheck, Mail, MapPin, Users } from 'lucide-react';
 
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
-import { ContactForm } from '@/components/site/contact-form';
 import { PageHero } from '@/components/site/page-hero';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { ORG } from '@/lib/site';
+
+/**
+ * Pre-filled email link, used instead of an on-site form.
+ *
+ * There is a working form component (`components/site/contact-form.tsx`) and
+ * handler (`app/api/contact/route.ts`) ready to switch back on — they just need
+ * `RESEND_API_KEY` and `CONTACT_TO_EMAIL` set in the environment. Until then a
+ * real mail draft beats a form that returns 503 on submit.
+ */
+const CONTACT_MAILTO =
+  `mailto:${ORG.email}` +
+  '?subject=' +
+  encodeURIComponent('Website enquiry') +
+  '&body=' +
+  encodeURIComponent(
+    [
+      'A bit about your organisation:',
+      '',
+      '',
+      'What you are trying to do:',
+      '',
+      '',
+      'Timeline and any hard constraints:',
+      '',
+      '',
+      'What success looks like:',
+      '',
+    ].join('\n'),
+  );
 
 export const metadata: Metadata = {
   title: 'Contact — Start a conversation',
@@ -51,15 +79,55 @@ export default function ContactPage() {
       <section className="bg-canvas-soft py-section">
         <div className="container">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* ---------- Form ---------- */}
+            {/* ---------- Message us ---------- */}
             <Reveal variant="block" className="lg:col-span-7">
               <h2 className="font-display text-display-md text-navy-950">Send us a message</h2>
               <p className="mt-3 max-w-xl text-body-lg text-navy-600 text-pretty">
                 The more you can tell us about the system and the constraints, the more useful our
                 first reply will be.
               </p>
-              <div className="mt-8">
-                <ContactForm fallbackEmail={ORG.email} />
+
+              <div className="mt-8 rounded-3xl border border-canvas-line bg-white p-7 shadow-card sm:p-9">
+                <p className="text-sm font-medium text-navy-900">Email us at</p>
+                <a
+                  href={CONTACT_MAILTO}
+                  className="mt-1 inline-block font-display text-display-sm text-navy-950 underline decoration-electric-400 decoration-2 underline-offset-4 transition-colors hover:text-electric-700"
+                >
+                  {ORG.email}
+                </a>
+
+                <p className="mt-7 text-sm font-medium text-navy-900">
+                  A few things that help us give you a useful first reply:
+                </p>
+                <ul className="mt-3 space-y-2.5 text-sm text-navy-600">
+                  {[
+                    'The system as it stands today, and what it connects to',
+                    'Your timeline, and any hard constraints (compliance, budget, team)',
+                    'What a successful outcome looks like',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5">
+                      <span
+                        aria-hidden
+                        className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-electric-500"
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href={CONTACT_MAILTO}
+                  className="mt-8 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full
+                             bg-navy-950 px-8 text-[0.9375rem] font-medium text-white shadow-card
+                             transition-colors duration-300 hover:bg-navy-900 sm:w-auto"
+                >
+                  Open a pre-filled email
+                  <Mail className="h-4 w-4" strokeWidth={2} />
+                </a>
+
+                <p className="mt-4 text-xs text-navy-500">
+                  We reply within one business day. No sales sequence, no newsletter.
+                </p>
               </div>
             </Reveal>
 
@@ -109,7 +177,7 @@ export default function ContactPage() {
                         <div>
                           <p className="text-eyebrow uppercase text-navy-400">Careers</p>
                           <p className="mt-1 text-sm text-navy-800">
-                            Engineers, use the form and mention the role.
+                            Engineers, email us and mention the role.
                           </p>
                         </div>
                       </li>
