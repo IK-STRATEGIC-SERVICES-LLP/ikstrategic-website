@@ -51,16 +51,16 @@ export function ContactCta() {
                   >
                     Contact us
                   </ButtonLink>
-                  {/* The form stays one click away: a mailto does nothing at
-                      all on a device with no mail client configured, so it
-                      cannot be the only route to reaching us. */}
+                  {/* Second route in case a mailto: does nothing — a device
+                      with no mail client configured — where the contact page
+                      also shows the address as copyable text. */}
                   <ButtonLink
                     href="/contact"
                     variant="onDark"
                     size="lg"
                     icon={<ArrowRight className="h-4 w-4" strokeWidth={2} />}
                   >
-                    Send a message
+                    Contact details
                   </ButtonLink>
                 </div>
               </div>
