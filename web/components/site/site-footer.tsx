@@ -50,6 +50,7 @@ const COLUMNS = [
       { label: 'AI & Automation', href: '/services#ai-automation' },
       { label: 'Web Development', href: '/services#web' },
       { label: 'Mobile App Development', href: '/services#mobile' },
+      { label: 'MEP Engineering', href: '/services#mep-engineering' },
       { label: 'Consulting & Resourcing', href: '/services#consulting' },
       { label: 'How We Build', href: '/#methodology' },
     ],

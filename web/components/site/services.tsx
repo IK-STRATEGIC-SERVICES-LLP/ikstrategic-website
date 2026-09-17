@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   Bot,
   Code2,
+  HardHat,
   Smartphone,
   Sparkles,
   Users,
@@ -75,6 +76,17 @@ const SERVICES: Service[] = [
       'Dedicated pods with full delivery accountability',
     ],
   },
+  {
+    icon: HardHat,
+    title: 'MEP Engineering',
+    summary:
+      'AI-powered mechanical, electrical and plumbing design with BIM-style coordination and automated clash detection — resolving conflicts in the model before the first trade breaks ground.',
+    bullets: [
+      'Generative AI design exploration for constructability and cost',
+      'Multi-trade BIM coordination and automated clash detection',
+      'Pre-construction clash reports that cut rework and change orders',
+    ],
+  },
 ];
 
 export function Services() {
@@ -86,7 +98,7 @@ export function Services() {
             eyebrow="What we do"
             title={
               <>
-                Four capabilities.
+                Five capabilities.
                 <br className="hidden sm:block" /> One accountable partner.
               </>
             }
@@ -97,7 +109,7 @@ export function Services() {
 
         {/* Bento grid: the AI cell spans wide, the rest fill in around it. */}
         <RevealGroup
-          className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-6"
+          className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-8"
           stagger={0.1}
         >
           {SERVICES.map((service) => (
@@ -105,8 +117,8 @@ export function Services() {
               key={service.title}
               variant="block"
               className={cn(
-                // The AI cell owns a full row; the other three split it three ways.
-                service.featured ? 'md:col-span-2 lg:col-span-6' : 'md:col-span-1 lg:col-span-2',
+                // The AI cell owns a full row; the other four split it four ways.
+                service.featured ? 'md:col-span-2 lg:col-span-8' : 'md:col-span-1 lg:col-span-2',
               )}
             >
               <ServiceCard service={service} />
