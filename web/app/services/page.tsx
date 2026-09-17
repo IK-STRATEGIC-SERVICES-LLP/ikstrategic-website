@@ -1,6 +1,15 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { ArrowRight, Bot, Check, Code2, Smartphone, Users, type LucideIcon } from 'lucide-react';
+import {
+  ArrowRight,
+  Bot,
+  Check,
+  Code2,
+  HardHat,
+  Smartphone,
+  Users,
+  type LucideIcon,
+} from 'lucide-react';
 
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { ContactCta } from '@/components/site/contact-cta';
@@ -10,15 +19,15 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { SectionHeading } from '@/components/ui/section-heading';
 
 export const metadata: Metadata = {
-  title: 'Services — AI, Web, Mobile & IT Consulting',
+  title: 'Services — AI, Web, Mobile, MEP & IT Consulting',
   description:
-    'AI and automation, Next.js and Angular web platforms, cross-platform and native mobile apps, and expert engineering talent — delivered by IK Strategic Services LLP.',
+    'AI and automation, Next.js and Angular web platforms, cross-platform and native mobile apps, AI-powered MEP engineering, and expert engineering talent — delivered by IK Strategic Services LLP.',
   alternates: { canonical: '/services' },
   openGraph: {
     url: '/services',
-    title: 'Services — AI, Web, Mobile & IT Consulting',
+    title: 'Services — AI, Web, Mobile, MEP & IT Consulting',
     description:
-      'Four capabilities, one accountable partner: AI & automation, web, mobile, and strategic consulting & resourcing.',
+      'Five capabilities, one accountable partner: AI & automation, web, mobile, MEP engineering, and strategic consulting & resourcing.',
   },
 };
 
@@ -112,6 +121,25 @@ const CAPABILITIES: Capability[] = [
       'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1400&q=80',
     imageAlt: 'Two colleagues reviewing delivery plans together',
   },
+  {
+    id: 'mep-engineering',
+    icon: HardHat,
+    eyebrow: 'Build it right the first time',
+    title: 'MEP Engineering',
+    lede: 'AI-powered mechanical, electrical and plumbing design that catches conflicts before the first trade breaks ground.',
+    body: 'We pair BIM-style coordination with generative AI and automated clash detection to model mechanical, electrical and plumbing systems against the full building design before work begins on-site. Conflicts between ductwork, conduit, piping and structure — the kind that normally surface mid-construction as change orders — are caught and resolved in the model, where fixing them costs a redraw rather than a rework crew. The result is a coordinated, constructible design your contractors can build from with fewer surprises, less rework and fewer costly mistakes in the field.',
+    deliverables: [
+      'AI-assisted mechanical, electrical and plumbing system design',
+      'BIM-style multi-trade coordination models',
+      'Automated clash detection across MEP and structural systems',
+      'Generative AI design exploration for constructability and cost',
+      'Pre-construction clash reports with resolution workflows',
+    ],
+    stack: ['BIM coordination', 'Clash detection', 'Generative design', 'Digital twin modelling', 'Construction documentation'],
+    image:
+      'https://images.unsplash.com/photo-1541976590-713941681591?auto=format&fit=crop&w=1400&q=80',
+    imageAlt: 'Engineers reviewing building coordination drawings on site',
+  },
 ];
 
 const ENGAGEMENTS = [
@@ -142,7 +170,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Four capabilities. One accountable partner."
+        title="Five capabilities. One accountable partner."
         description="Most firms sell you a function and hand back a deliverable. We take responsibility for the outcome — from the first architecture decision through to the system running in production, under load, in front of your customers."
       >
         <div className="flex flex-wrap gap-4">

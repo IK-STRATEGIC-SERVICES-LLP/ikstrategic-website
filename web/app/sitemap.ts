@@ -20,8 +20,8 @@ import { SITE_URL } from '@/lib/site';
  * Bump the date for a page when its *content* changes. Ignore it otherwise.
  */
 const ROUTES = [
-  { path: '/', priority: 1, changeFrequency: 'weekly', lastModified: '2026-08-11' },
-  { path: '/services', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-08-11' },
+  { path: '/', priority: 1, changeFrequency: 'weekly', lastModified: '2026-09-17' },
+  { path: '/services', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-09-17' },
   { path: '/about', priority: 0.8, changeFrequency: 'monthly', lastModified: '2026-08-11' },
   { path: '/contact', priority: 0.7, changeFrequency: 'monthly', lastModified: '2026-09-09' },
   { path: '/privacy', priority: 0.3, changeFrequency: 'yearly', lastModified: '2026-09-09' },

@@ -90,4 +90,9 @@ export const SERVICE_LINES = [
     description:
       'IT consulting, staff augmentation and dedicated engineering pods embedded in your teams with full delivery accountability.',
   },
+  {
+    name: 'MEP Engineering',
+    description:
+      'AI-powered mechanical, electrical and plumbing engineering with BIM-style coordination and automated clash detection, resolving conflicts before work begins on-site.',
+  },
 ] as const;
