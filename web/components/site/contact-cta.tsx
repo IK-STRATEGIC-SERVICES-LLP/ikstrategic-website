@@ -23,8 +23,8 @@ export function ContactCta() {
           >
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
               <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-radial" />
-              <div className="absolute -left-24 -top-24 h-[24rem] w-[24rem] rounded-full bg-electric-500/25 blur-[110px] animate-aurora" />
-              <div className="absolute -bottom-28 right-0 h-[26rem] w-[26rem] rounded-full bg-violetine-600/25 blur-[120px] animate-aurora-slow" />
+              <div className="absolute -left-24 -top-24 h-[24rem] w-[24rem] orb text-electric-500/25" />
+              <div className="absolute -bottom-28 right-0 h-[26rem] w-[26rem] orb text-violetine-600/25" />
             </div>
 
             <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">

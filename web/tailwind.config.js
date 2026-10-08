@@ -109,6 +109,10 @@ module.exports = {
       },
 
       keyframes: {
+        'page-in': {
+          '0%': { opacity: '0', transform: 'translate3d(0,10px,0)' },
+          '100%': { opacity: '1', transform: 'translate3d(0,0,0)' },
+        },
         aurora: {
           '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)', opacity: '0.55' },
           '50%': { transform: 'translate3d(4%, -6%, 0) scale(1.14)', opacity: '0.8' },
@@ -128,6 +132,7 @@ module.exports = {
         },
       },
       animation: {
+        'page-in': 'page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards',
         aurora: 'aurora 18s ease-in-out infinite',
         'aurora-slow': 'aurora 26s ease-in-out infinite',
         shimmer: 'shimmer 2.4s linear infinite',

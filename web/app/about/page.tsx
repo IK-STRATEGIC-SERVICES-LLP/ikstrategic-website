@@ -126,7 +126,7 @@ export default function AboutPage() {
       <section className="bg-navy-950 on-dark relative isolate overflow-hidden py-20">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-y" />
-          <div className="absolute left-1/3 top-0 h-[22rem] w-[34rem] rounded-full bg-electric-500/15 blur-[130px] animate-aurora-slow" />
+          <div className="absolute left-1/3 top-0 h-[22rem] w-[34rem] orb text-electric-500/15" />
         </div>
         <div className="container">
           <RevealGroup

@@ -98,7 +98,7 @@ export function SiteFooter() {
     <footer className="on-dark relative isolate overflow-hidden bg-navy-950 pt-section">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-y opacity-60" />
-        <div className="absolute -bottom-40 left-1/4 h-[26rem] w-[26rem] rounded-full bg-electric-600/12 blur-[130px]" />
+        <div className="absolute -bottom-40 left-1/4 h-[26rem] w-[26rem] orb text-electric-600/12" />
       </div>
 
       <div className="container">

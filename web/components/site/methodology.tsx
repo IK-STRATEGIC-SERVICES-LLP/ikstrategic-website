@@ -80,8 +80,8 @@ export function Methodology() {
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-y" />
-        <div className="absolute left-1/2 top-0 h-[28rem] w-[42rem] -translate-x-1/2 rounded-full bg-violetine-600/18 blur-[140px] animate-aurora-slow" />
-        <div className="absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-electric-500/15 blur-[120px] animate-aurora" />
+        <div className="absolute left-1/2 top-0 h-[28rem] w-[42rem] -translate-x-1/2 orb text-violetine-600/18" />
+        <div className="absolute -right-20 bottom-0 h-[26rem] w-[26rem] orb text-electric-500/15" />
       </div>
 
       <div className="container">
