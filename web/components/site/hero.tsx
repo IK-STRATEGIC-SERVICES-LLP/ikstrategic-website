@@ -44,8 +44,8 @@ export function Hero() {
           blur radius drops. The glow reads the same; only the drift is lost. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-radial" />
-        <div className="absolute -left-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-electric-500/20 blur-[70px] sm:blur-[120px] sm:animate-aurora" />
-        <div className="absolute -right-24 top-24 h-[30rem] w-[30rem] rounded-full bg-violetine-600/25 blur-[70px] sm:blur-[130px] sm:animate-aurora-slow" />
+        <div className="absolute -left-32 -top-40 h-[34rem] w-[34rem] orb text-electric-500/20" />
+        <div className="absolute -right-24 top-24 h-[30rem] w-[30rem] orb text-violetine-600/25" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-navy-950 to-transparent" />
       </div>
 

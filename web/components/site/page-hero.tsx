@@ -26,8 +26,8 @@ export function PageHero({
     <section className="on-dark relative isolate overflow-hidden bg-navy-950 pb-20 pt-36 sm:pt-44">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-radial" />
-        <div className="absolute -left-24 -top-32 h-[28rem] w-[28rem] rounded-full bg-electric-500/20 blur-[120px] animate-aurora" />
-        <div className="absolute -right-20 top-10 h-[26rem] w-[26rem] rounded-full bg-violetine-600/22 blur-[130px] animate-aurora-slow" />
+        <div className="absolute -left-24 -top-32 h-[28rem] w-[28rem] orb text-electric-500/20" />
+        <div className="absolute -right-20 top-10 h-[26rem] w-[26rem] orb text-violetine-600/22" />
       </div>
 
       <div className="container">

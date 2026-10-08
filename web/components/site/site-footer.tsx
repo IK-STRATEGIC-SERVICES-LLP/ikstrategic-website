@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Linkedin, Mail, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
+import { CookieSettingsButton } from '@/components/analytics/analytics-consent';
 import { LogoMark } from '@/components/ui/logo';
 import { RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { ORG } from '@/lib/site';
@@ -98,7 +99,7 @@ export function SiteFooter() {
     <footer className="on-dark relative isolate overflow-hidden bg-navy-950 pt-section">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-y opacity-60" />
-        <div className="absolute -bottom-40 left-1/4 h-[26rem] w-[26rem] rounded-full bg-electric-600/12 blur-[130px]" />
+        <div className="absolute -bottom-40 left-1/4 h-[26rem] w-[26rem] orb text-electric-600/12" />
       </div>
 
       <div className="container">
@@ -202,6 +203,9 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <CookieSettingsButton className="text-xs text-navy-400 transition-colors duration-300 hover:text-electric-300" />
+            </li>
           </ul>
         </div>
       </div>

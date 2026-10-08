@@ -39,7 +39,7 @@ export function SiteHeader() {
         'fixed inset-x-0 top-0 z-50 transition-colors duration-500 ease-out-expo',
         onDark
           ? 'on-dark bg-transparent'
-          : 'border-b border-canvas-line bg-white/85 backdrop-blur-xl',
+          : 'border-b border-canvas-line bg-white/95',
       )}
     >
       <div className="container flex h-20 items-center justify-between gap-6">

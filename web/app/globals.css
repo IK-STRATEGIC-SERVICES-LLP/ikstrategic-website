@@ -58,6 +58,16 @@
 }
 
 @layer utilities {
+  /* Soft glow disc drawn as a radial gradient. Replaces `blur-[120px]` discs:
+     a CSS blur filter on a ~500px element is re-rasterised by the GPU on every
+     repaint, while a gradient is a flat, cached texture. Colour comes from
+     `text-*` (currentColor), so alpha is set the same way as before. */
+  .orb {
+    border-radius: 9999px;
+    background: radial-gradient(closest-side, currentColor 0%, transparent 100%);
+    transform: translateZ(0);
+  }
+
   .text-gradient-accent {
     @apply bg-accent-sweep bg-clip-text text-transparent;
   }

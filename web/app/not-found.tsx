@@ -21,8 +21,8 @@ export default function NotFound() {
     <section className="on-dark relative isolate flex min-h-[72vh] items-center overflow-hidden bg-navy-950 py-24">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-dark bg-grid mask-fade-radial" />
-        <div className="absolute -left-24 -top-32 h-[26rem] w-[26rem] rounded-full bg-electric-500/20 blur-[120px]" />
-        <div className="absolute -right-20 bottom-0 h-[24rem] w-[24rem] rounded-full bg-violetine-600/20 blur-[130px]" />
+        <div className="absolute -left-24 -top-32 h-[26rem] w-[26rem] orb text-electric-500/20" />
+        <div className="absolute -right-20 bottom-0 h-[24rem] w-[24rem] orb text-violetine-600/20" />
       </div>
 
       <div className="container">
