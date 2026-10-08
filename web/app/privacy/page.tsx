@@ -44,8 +44,11 @@ export default function PrivacyPage() {
       </p>
       <h3>Information collected automatically</h3>
       <p>
-        We do not run analytics, advertising, or tracking of any kind on this site, and we set no
-        tracking cookies (see our <a href="/cookies">Cookies</a> page). Our hosting provider keeps
+        We use Google Analytics to measure how the site is used, but only if you accept it on the
+        cookie banner; it records pages viewed, approximate location, device and browser type, and
+        how you arrived, against a random identifier, with IP anonymisation on. We run no
+        advertising or social-media tracking (see our <a href="/cookies">Cookies</a> page, where you
+        can also change your choice). Our hosting provider keeps
         standard server logs — IP address, browser type, pages requested, and timestamps — for a
         short period, to keep the site available and secure. We do not use those logs to build a
         profile of you.
@@ -66,6 +69,10 @@ export default function PrivacyPage() {
           <strong>To keep the site secure and operational</strong> — on the basis of our legitimate
           interest in protecting our systems.
         </li>
+        <li>
+          <strong>To understand how the site is used</strong> with Google Analytics — on the basis
+          of your consent, which you can withdraw at any time via Cookie settings in the footer.
+        </li>
       </ul>
 
       <h2>Who we share it with</h2>
@@ -81,6 +88,10 @@ export default function PrivacyPage() {
         <li>
           <strong>Hosting</strong> — Vercel, which serves this website and keeps the server logs
           described above.
+        </li>
+        <li>
+          <strong>Analytics</strong> — Google Analytics, only if you accept it, to measure site
+          usage.
         </li>
       </ul>
       <p>

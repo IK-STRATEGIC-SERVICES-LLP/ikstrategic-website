@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Linkedin, Mail, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
+import { CookieSettingsButton } from '@/components/analytics/analytics-consent';
 import { LogoMark } from '@/components/ui/logo';
 import { RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { ORG } from '@/lib/site';
@@ -202,6 +203,9 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <CookieSettingsButton className="text-xs text-navy-400 transition-colors duration-300 hover:text-electric-300" />
+            </li>
           </ul>
         </div>
       </div>
