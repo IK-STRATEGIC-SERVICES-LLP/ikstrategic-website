@@ -10,6 +10,20 @@ export const OPEN_CONSENT_EVENT = 'ik:open-consent';
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 type Choice = 'granted' | 'denied';
+/** `opt-in`: nothing loads until accepted. `notice`: loads by default, can opt out. */
+type Mode = 'opt-in' | 'notice';
+
+/** Decide the consent model for this visitor. Strict unless the server says otherwise. */
+async function fetchMode(): Promise<Mode> {
+  try {
+    const res = await fetch('/api/region', { cache: 'no-store' });
+    if (!res.ok) return 'opt-in';
+    const data = (await res.json()) as { mode?: string };
+    return data.mode === 'notice' ? 'notice' : 'opt-in';
+  } catch {
+    return 'opt-in';
+  }
+}
 
 function readChoice(): Choice | null {
   try {
@@ -45,22 +59,45 @@ function clearGaCookies() {
 }
 
 /**
- * Opt-in Google Analytics. Nothing from Google is requested until the visitor
- * accepts: the gtag script is not even in the DOM before then. Renders nothing
- * at all when no measurement ID is configured, so the site stays tracker-free.
+ * Google Analytics with region-aware consent.
+ *
+ * - Europe, UK and US visitors (and anyone we cannot locate): strict opt-in.
+ *   Nothing from Google is requested, and the gtag script is not in the DOM,
+ *   until they press Accept.
+ * - Elsewhere (e.g. India): analytics runs by default behind a small notice
+ *   with a one-click opt-out.
+ *
+ * A saved choice always wins over the regional default. Renders nothing when no
+ * measurement ID is configured, so the site stays tracker-free.
  */
 export function AnalyticsConsent() {
   const [choice, setChoice] = useState<Choice | null>(null);
+  const [mode, setMode] = useState<Mode>('opt-in');
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
+    if (!GA_ID) return;
+    let cancelled = false;
+
     const saved = readChoice();
-    setChoice(saved);
-    setShowBanner(saved === null);
+    if (saved) {
+      setChoice(saved);
+    } else {
+      fetchMode().then((m) => {
+        if (cancelled) return;
+        setMode(m);
+        // Lighter regions: on by default until the visitor says otherwise.
+        if (m === 'notice') setChoice('granted');
+        setShowBanner(true);
+      });
+    }
 
     const reopen = () => setShowBanner(true);
     window.addEventListener(OPEN_CONSENT_EVENT, reopen);
-    return () => window.removeEventListener(OPEN_CONSENT_EVENT, reopen);
+    return () => {
+      cancelled = true;
+      window.removeEventListener(OPEN_CONSENT_EVENT, reopen);
+    };
   }, []);
 
   const decide = useCallback((next: Choice) => {
@@ -92,7 +129,7 @@ gtag('js',new Date());gtag('config','${GA_ID}',{anonymize_ip:true});`}
         </>
       )}
 
-      {showBanner && (
+      {showBanner && mode === 'opt-in' && (
         <div
           role="dialog"
           aria-label="Analytics cookies"
@@ -125,6 +162,43 @@ gtag('js',new Date());gtag('config','${GA_ID}',{anonymize_ip:true});`}
                            transition-colors hover:bg-electric-100"
               >
                 Accept
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showBanner && mode === 'notice' && (
+        <div
+          role="region"
+          aria-label="Analytics notice"
+          className="fixed inset-x-4 bottom-4 z-[90] mx-auto max-w-xl rounded-2xl border
+                     border-white/10 bg-navy-950 p-4 text-white shadow-2xl sm:bottom-6"
+        >
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+            <p className="text-xs leading-relaxed text-navy-200">
+              We use Google Analytics to understand how this site is used.{' '}
+              <a href="/cookies" className="underline underline-offset-2 hover:text-electric-300">
+                Details
+              </a>
+              . You can opt out at any time.
+            </p>
+            <div className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                onClick={() => decide('denied')}
+                className="h-9 rounded-full border border-white/25 px-4 text-xs font-medium
+                           text-white transition-colors hover:bg-white/10"
+              >
+                Opt out
+              </button>
+              <button
+                type="button"
+                onClick={() => decide('granted')}
+                className="h-9 rounded-full bg-white px-4 text-xs font-medium text-navy-950
+                           transition-colors hover:bg-electric-100"
+              >
+                OK
               </button>
             </div>
           </div>

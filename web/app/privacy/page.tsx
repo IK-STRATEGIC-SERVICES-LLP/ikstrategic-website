@@ -44,8 +44,9 @@ export default function PrivacyPage() {
       </p>
       <h3>Information collected automatically</h3>
       <p>
-        We use Google Analytics to measure how the site is used, but only if you accept it on the
-        cookie banner; it records pages viewed, approximate location, device and browser type, and
+        We use Google Analytics to measure how the site is used. In Europe, the UK, Switzerland and
+        the US it runs only if you accept it on the cookie banner; elsewhere it runs by default
+        with a one-click opt-out. It records pages viewed, approximate location, device and browser type, and
         how you arrived, against a random identifier, with IP anonymisation on. We run no
         advertising or social-media tracking (see our <a href="/cookies">Cookies</a> page, where you
         can also change your choice). Our hosting provider keeps
@@ -71,7 +72,9 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>To understand how the site is used</strong> with Google Analytics — on the basis
-          of your consent, which you can withdraw at any time via Cookie settings in the footer.
+          of your consent where the law requires it (Europe, the UK, Switzerland and the US), and
+          otherwise our legitimate interest in understanding and improving the site, with an opt-out
+          always available. You can change your choice at any time via Cookie settings in the footer.
         </li>
       </ul>
 
@@ -90,8 +93,8 @@ export default function PrivacyPage() {
           described above.
         </li>
         <li>
-          <strong>Analytics</strong> — Google Analytics, only if you accept it, to measure site
-          usage.
+          <strong>Analytics</strong> — Google Analytics, to measure site usage (opt-in or opt-out,
+          depending on where you are).
         </li>
       </ul>
       <p>
