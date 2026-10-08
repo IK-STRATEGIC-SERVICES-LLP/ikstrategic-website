@@ -2,6 +2,7 @@
 
 import { ArrowRight, CalendarCheck, Mail } from 'lucide-react';
 
+import { MailOptions } from '@/components/site/mail-options';
 import { ButtonLink } from '@/components/ui/button';
 import { RevealGroup, RevealItem } from '@/components/ui/reveal';
 import { ORG } from '@/lib/site';
@@ -62,6 +63,9 @@ export function ContactCta() {
                   >
                     Contact details
                   </ButtonLink>
+                </div>
+                <div className="mt-5">
+                  <MailOptions tone="dark" />
                 </div>
               </div>
 

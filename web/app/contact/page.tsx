@@ -4,6 +4,8 @@ import { CalendarCheck, Mail, MapPin, Users } from 'lucide-react';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { PageHero } from '@/components/site/page-hero';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/reveal';
+import { MailOptions } from '@/components/site/mail-options';
+import { CONTACT_MAILTO } from '@/lib/mail';
 import { ORG } from '@/lib/site';
 
 /**
@@ -14,27 +16,6 @@ import { ORG } from '@/lib/site';
  * `RESEND_API_KEY` and `CONTACT_TO_EMAIL` set in the environment. Until then a
  * real mail draft beats a form that returns 503 on submit.
  */
-const CONTACT_MAILTO =
-  `mailto:${ORG.email}` +
-  '?subject=' +
-  encodeURIComponent('Website enquiry') +
-  '&body=' +
-  encodeURIComponent(
-    [
-      'A bit about your organisation:',
-      '',
-      '',
-      'What you are trying to do:',
-      '',
-      '',
-      'Timeline and any hard constraints:',
-      '',
-      '',
-      'What success looks like:',
-      '',
-    ].join('\n'),
-  );
-
 export const metadata: Metadata = {
   title: 'Contact — Start a conversation',
   description:
@@ -124,6 +105,10 @@ export default function ContactPage() {
                   Open a pre-filled email
                   <Mail className="h-4 w-4" strokeWidth={2} />
                 </a>
+
+                <div className="mt-4">
+                  <MailOptions />
+                </div>
 
                 <p className="mt-4 text-xs text-navy-500">
                   We reply within one business day. No sales sequence, no newsletter.
