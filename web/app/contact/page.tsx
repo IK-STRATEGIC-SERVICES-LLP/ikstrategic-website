@@ -80,7 +80,7 @@ export default function ContactPage() {
         <div className="container">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             {/* ---------- Message us ---------- */}
-            <Reveal variant="block" className="lg:col-span-7">
+            <Reveal variant="block" className="min-w-0 lg:col-span-7">
               <h2 className="font-display text-display-md text-navy-950">Send us a message</h2>
               <p className="mt-3 max-w-xl text-body-lg text-navy-600 text-pretty">
                 The more you can tell us about the system and the constraints, the more useful our
@@ -91,7 +91,7 @@ export default function ContactPage() {
                 <p className="text-sm font-medium text-navy-900">Email us at</p>
                 <a
                   href={CONTACT_MAILTO}
-                  className="mt-1 inline-block font-display text-display-sm text-navy-950 underline decoration-electric-400 decoration-2 underline-offset-4 transition-colors hover:text-electric-700"
+                  className="mt-1 inline-block break-all font-display text-display-sm text-navy-950 underline decoration-electric-400 decoration-2 underline-offset-4 transition-colors hover:text-electric-700"
                 >
                   {ORG.email}
                 </a>
