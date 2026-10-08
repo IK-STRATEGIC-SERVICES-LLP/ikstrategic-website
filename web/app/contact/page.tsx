@@ -14,26 +14,38 @@ import { ORG } from '@/lib/site';
  * `RESEND_API_KEY` and `CONTACT_TO_EMAIL` set in the environment. Until then a
  * real mail draft beats a form that returns 503 on submit.
  */
-const CONTACT_MAILTO =
-  `mailto:${ORG.email}` +
-  '?subject=' +
-  encodeURIComponent('Website enquiry') +
-  '&body=' +
-  encodeURIComponent(
-    [
-      'A bit about your organisation:',
-      '',
-      '',
-      'What you are trying to do:',
-      '',
-      '',
-      'Timeline and any hard constraints:',
-      '',
-      '',
-      'What success looks like:',
-      '',
-    ].join('\n'),
-  );
+const SUBJECT = 'Website enquiry';
+const BODY = [
+  'A bit about your organisation:',
+  '',
+  '',
+  'What you are trying to do:',
+  '',
+  '',
+  'Timeline and any hard constraints:',
+  '',
+  '',
+  'What success looks like:',
+  '',
+].join('\n');
+
+const subject = encodeURIComponent(SUBJECT);
+const body = encodeURIComponent(BODY);
+
+/** Default mail app on the visitor's device. */
+const CONTACT_MAILTO = `mailto:${ORG.email}?subject=${subject}&body=${body}`;
+
+/**
+ * Webmail compose links with the same pre-filled draft. A page cannot detect
+ * which mail apps or accounts a visitor has, so rather than guess we offer the
+ * default app first and Outlook / Gmail on the web as explicit alternatives.
+ */
+const OUTLOOK_COMPOSE =
+  `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(ORG.email)}` +
+  `&subject=${subject}&body=${body}`;
+const GMAIL_COMPOSE =
+  `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(ORG.email)}` +
+  `&su=${subject}&body=${body}`;
 
 export const metadata: Metadata = {
   title: 'Contact — Start a conversation',
@@ -124,6 +136,26 @@ export default function ContactPage() {
                   Open a pre-filled email
                   <Mail className="h-4 w-4" strokeWidth={2} />
                 </a>
+
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span className="text-xs text-navy-500">Or compose in your browser:</span>
+                  {[
+                    { label: 'Outlook', href: OUTLOOK_COMPOSE },
+                    { label: 'Gmail', href: GMAIL_COMPOSE },
+                  ].map((option) => (
+                    <a
+                      key={option.label}
+                      href={option.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-10 items-center rounded-full border border-canvas-line
+                                 px-5 text-sm font-medium text-navy-900 transition-colors
+                                 duration-300 hover:border-electric-400 hover:text-electric-700"
+                    >
+                      {option.label}
+                    </a>
+                  ))}
+                </div>
 
                 <p className="mt-4 text-xs text-navy-500">
                   We reply within one business day. No sales sequence, no newsletter.
